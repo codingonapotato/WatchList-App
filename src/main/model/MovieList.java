@@ -1,10 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+
 // Represents a list of Movies
-
-import java.util.List;
-
 public class MovieList {
-    // TODO: decide whether or not to use the list interface or its subtypes
-    private List<Movie> movieList;
+    private ArrayList<Movie> currentlyWatching;
+    private ArrayList<Movie> dropped;
+    private ArrayList<Movie> plannedToWatch;
+
+    public MovieList() {
+
+    }
 }
