@@ -17,34 +17,67 @@ public class WatchList {
 
     // MODIFIES: this
     // EFFECTS: inserts the media to the currently watching list
-    public void addCurrentlyWatching() {
-        // stub
+    public void addCurrentlyWatching(Media media) {
+        currentlyWatching.add(media);
     }
 
     // MODIFIES: this
     // EFFECTS: inserts the media to the dropped shows watch list
-    public void addDropped() {
-        // stub
+    public void addDropped(Media media) {
+        dropped.add(media);
     }
 
     // MODIFIES: this
     // EFFECTS: inserts the media to the planned to watch list
-    public void addMediaPlannedToWatch() {
-        // stub
+    public void addPlannedToWatch(Media media) {
+        plannedToWatch.add(media);
     }
 
     // EFFECTS: calculates the average rating across the currently watching list
-    public int averageRatingCurrentlyWatching() {
-        return 1;
+    public double averageRatingCurrentlyWatching() {
+        int count = 0;
+        double rsf = 0; // results-so-far
+        for (Media m : currentlyWatching) {
+            rsf += m.getRating();
+            count++;
+        }
+        return (rsf / count);
     }
 
     // EFFECTS: calculates the average rating across the dropped shows watch list
-    public int averageRatingDropped() {
-        return 1;
+    public double averageRatingDropped() {
+        int count = 0;
+        double rsf = 0; // results-so-far
+        for (Media m : dropped) {
+            rsf += m.getRating();
+            count++;
+        }
+        return (rsf / count);
     }
 
     // EFFECTS: calculates the average rating across the planned to watch list
-    public int averageRatingPlannedToWatch() {
-        return 1;
+    public double averageRatingPlannedToWatch() {
+        int count = 0;
+        double rsf = 0; // results-so-far
+        for (Media m : plannedToWatch) {
+            rsf += m.getRating();
+            count++;
+        }
+        return (rsf / count);
+    }
+
+    // EFFECTS: returns the currently watching list
+    public ArrayList<Media> getCurrentlyWatching() {
+        return currentlyWatching;
+    }
+
+    // EFFECTS: returns the dropped list
+    public ArrayList<Media> getDropped() {
+        return dropped;
+    }
+
+    // EFFECTS: returns the planned to watch list
+    public ArrayList<Media> getPlannedToWatch() {
+        return plannedToWatch;
     }
 }
