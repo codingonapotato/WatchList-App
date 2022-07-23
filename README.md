@@ -22,6 +22,6 @@ and take the best features that I love from those services and try to implement 
 ## User Stories:
 - As a user, I would like to add Movies and TV shows to a Movie watchlist
 - As a user, I would like to be able to add a rating for my TV shows and Movies
-- As a user, I would like to keep track and organize different lists of Movies and TV shows such as a \
+- As a user, I would like to keep track and organize different watch lists such as a \
 *currently watching*, *planning to watch*, or *dropped* list
-- As a user, I would like to have the Movie and TV shows in my list to be sorted in descending order by rating
+- As a user, I would like to calculate the average rating across a category of my watchlist

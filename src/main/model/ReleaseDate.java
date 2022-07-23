@@ -5,7 +5,7 @@ public class ReleaseDate {
     private int year;
     private int month;
     private int day;
-    private final int PRESENT_YEAR = 2022;
+    private static final int PRESENT_YEAR = 2022;
 
     // REQUIRES: year is [1700, PRESENT_YEAR], month is [1, 12], day is [1, 31]
     // EFFECTS: Instantiates a ReleaseDate object with a year, month and day
