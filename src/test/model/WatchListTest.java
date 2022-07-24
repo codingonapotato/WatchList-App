@@ -3,8 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class WatchListTest {
     private WatchList testWatchList;
@@ -32,63 +31,69 @@ class WatchListTest {
     }
 
     @Test
+    // TODO:
     public void testAddCurrentlyWatching() {
-        // Set-up:
-        testWatchList.addCurrentlyWatching(movie1);
-        testWatchList.addCurrentlyWatching(movie2);
+        // Set-up and check outputs:
+        assertTrue(testWatchList.addCurrentlyWatching(movie1));
+        assertTrue(testWatchList.addCurrentlyWatching(movie2));
+        assertTrue(testWatchList.addCurrentlyWatching(show1));
+        assertFalse(testWatchList.addCurrentlyWatching(movie1));
         // Verify outputs:
-        assertTrue(2 == testWatchList.getCurrentlyWatching().size());
+        assertTrue(3 == testWatchList.getCurrentlyWatching().size());
         assertTrue(testWatchList.getCurrentlyWatching().contains(movie1));
         assertTrue(testWatchList.getCurrentlyWatching().contains(movie2));
+        assertTrue(testWatchList.getCurrentlyWatching().contains(show1));
     }
 
     @Test
     public void testAddDropped() {
-        // Set-up:
-        testWatchList.addDropped(movie1);
-        testWatchList.addDropped(movie2);
+        // Set-up and check outputs:
+        assertTrue(testWatchList.addDropped(movie1));
+        assertTrue(testWatchList.addDropped(movie2));
+        assertTrue(testWatchList.addDropped(show1));
+        assertFalse(testWatchList.addDropped(movie1));
 
         // Verify outputs:
-        assertTrue(2 == testWatchList.getDropped().size());
+        assertTrue(3 == testWatchList.getDropped().size());
         assertTrue(testWatchList.getDropped().contains(movie1));
         assertTrue(testWatchList.getDropped().contains(movie2));
+        assertTrue(testWatchList.getDropped().contains(show1));
     }
 
     @Test
     public void testAddPlannedToWatch() {
-        // Set-up:
-        testWatchList.addPlannedToWatch(movie1);
-        testWatchList.addPlannedToWatch(movie2);
+        // Set-up and check outputs:
+        assertTrue(testWatchList.addPlannedToWatch(movie1));
+        assertTrue(testWatchList.addPlannedToWatch(movie2));
+        assertTrue(testWatchList.addPlannedToWatch(show1));
+        assertFalse(testWatchList.addPlannedToWatch(movie1));
 
         // Verify outputs:
-        assertTrue(2 == testWatchList.getPlannedToWatch().size());
+        assertTrue(3 == testWatchList.getPlannedToWatch().size());
         assertTrue(testWatchList.getPlannedToWatch().contains(movie1));
         assertTrue(testWatchList.getPlannedToWatch().contains(movie2));
+        assertTrue(testWatchList.getPlannedToWatch().contains(show1));
     }
 
     @Test
     public void testAverageRatingCurrentlyWatching() {
         // Set-up:
         testWatchList.addCurrentlyWatching(movie1);
-        testWatchList.addCurrentlyWatching(movie2);
-        movie1.setRating(1);
-        movie2.setRating(2);
+        testWatchList.addCurrentlyWatching(show1);
+        movie1.setRating(5);
+        show1.setRating(20);
         // check outputs:
-        assertEquals(1.5, testWatchList.averageRatingCurrentlyWatching());
+        assertEquals(12.5, testWatchList.averageRatingCurrentlyWatching());
 
         // Set-up:
-        testWatchList.addCurrentlyWatching(movie1);
-        testWatchList.addCurrentlyWatching(movie2);
         movie1.setRating(0);
-        movie2.setRating(0);
+        show1.setRating(0);
         // check outputs:
         assertEquals(0, testWatchList.averageRatingCurrentlyWatching());
 
         // Set-up:
-        testWatchList.addCurrentlyWatching(movie1);
-        testWatchList.addCurrentlyWatching(movie2);
         movie1.setRating(100);
-        movie2.setRating(100);
+        show1.setRating(100);
         // check outputs:
         assertEquals(100, testWatchList.averageRatingCurrentlyWatching());
     }
@@ -97,25 +102,21 @@ class WatchListTest {
     public void testAverageRatingDropped() {
         // Set-up:
         testWatchList.addDropped(movie1);
-        testWatchList.addDropped(movie2);
-        movie1.setRating(1);
-        movie2.setRating(2);
+        testWatchList.addDropped(show1);
+        movie1.setRating(20);
+        show1.setRating(5);
         // check outputs:
-        assertEquals(1.5, testWatchList.averageRatingDropped());
+        assertEquals(12.5, testWatchList.averageRatingDropped());
 
         // Set-up:
-        testWatchList.addDropped(movie1);
-        testWatchList.addDropped(movie2);
         movie1.setRating(0);
-        movie2.setRating(0);
+        show1.setRating(0);
         // check outputs:
         assertEquals(0, testWatchList.averageRatingDropped());
 
         // Set-up:
-        testWatchList.addDropped(movie1);
-        testWatchList.addDropped(movie2);
         movie1.setRating(100);
-        movie2.setRating(100);
+        show1.setRating(100);
         // check outputs:
         assertEquals(100, testWatchList.averageRatingDropped());
     }
@@ -124,26 +125,61 @@ class WatchListTest {
     public void testAverageRatingPlannedToWatch() {
         // Set-up:
         testWatchList.addPlannedToWatch(movie1);
-        testWatchList.addPlannedToWatch(movie2);
-        movie1.setRating(1);
-        movie2.setRating(2);
+        testWatchList.addPlannedToWatch(show1);
+        movie1.setRating(5);
+        show1.setRating(98);
         // check outputs:
-        assertEquals(1.5, testWatchList.averageRatingPlannedToWatch());
+        assertEquals(51.5, testWatchList.averageRatingPlannedToWatch());
 
-        // Set-up:
-        testWatchList.addPlannedToWatch(movie1);
-        testWatchList.addPlannedToWatch(movie2);
+        //Set-up:
         movie1.setRating(0);
-        movie2.setRating(0);
+        show1.setRating(0);
         // check outputs:
         assertEquals(0, testWatchList.averageRatingPlannedToWatch());
 
         // Set-up:
-        testWatchList.addPlannedToWatch(movie1);
-        testWatchList.addPlannedToWatch(movie2);
         movie1.setRating(100);
-        movie2.setRating(100);
+        show1.setRating(100);
         // check outputs:
         assertEquals(100, testWatchList.averageRatingPlannedToWatch());
+    }
+
+    @Test
+    public void testRetrieveMediaCurrentlyWatching() {
+        // Set-up:
+        testWatchList.addCurrentlyWatching(movie1);
+        testWatchList.addCurrentlyWatching(show1);
+
+        // Check outputs:
+        assertEquals(movie1, testWatchList.retrieveMediaCurrentlyWatching("Jujutsu Kaisen 0"));
+        assertEquals(show1, testWatchList.retrieveMediaCurrentlyWatching("Spy x Family"));
+        Media otherwiseCase = testWatchList.retrieveMediaCurrentlyWatching("Rem");
+        assertEquals(otherwiseCase.getTitle(), "Rem");
+    }
+
+    @Test
+    public void testRetrieveMediaDropped() {
+        // Set-up:
+        testWatchList.addDropped(movie1);
+        testWatchList.addDropped(show1);
+
+        // Check outputs:
+        assertEquals(movie1, testWatchList.retrieveMediaDropped("Jujutsu Kaisen 0"));
+        assertEquals(show1, testWatchList.retrieveMediaDropped("Spy x Family"));
+        Media otherwiseCase = testWatchList.retrieveMediaDropped("Ram");
+        assertEquals(otherwiseCase.getTitle(), "Ram");
+    }
+
+    @Test
+    public void testRetrieveMediaPlannedToWatch() {
+        // Set-up:
+        testWatchList.addPlannedToWatch(movie1);
+        testWatchList.addPlannedToWatch(show1);
+
+        // Check outputs:
+        assertEquals(movie1, testWatchList.retrieveMediaPlannedToWatch("Jujutsu Kaisen 0"));
+        assertEquals(show1, testWatchList.retrieveMediaPlannedToWatch("Spy x Family"));
+        Media otherwiseCase = testWatchList.retrieveMediaPlannedToWatch("Bethroldt");
+        assertEquals(otherwiseCase.getTitle(), "Bethroldt");
     }
 }
