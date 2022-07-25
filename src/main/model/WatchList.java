@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-// Represents a list of Media (and its subclasses) with fields representing different categories of
+// Represents a watch list with fields representing different categories of watch lists that all store media objects
 public class WatchList {
     private ArrayList<Media> currentlyWatching;
     private ArrayList<Media> dropped;
@@ -51,6 +51,7 @@ public class WatchList {
         }
     }
 
+    // REQUIRES: currentlyWatching.size()>= 1
     // EFFECTS: calculates the average rating across the currently watching list
     public double averageRatingCurrentlyWatching() {
         int count = 0;
@@ -62,6 +63,7 @@ public class WatchList {
         return (rsf / count);
     }
 
+    // REQUIRES: dropped.size()>= 1
     // EFFECTS: calculates the average rating across the dropped shows watch list
     public double averageRatingDropped() {
         int count = 0;
@@ -73,6 +75,7 @@ public class WatchList {
         return (rsf / count);
     }
 
+    // REQUIRES: plannedToWatch.size() >= 1
     // EFFECTS: calculates the average rating across the planned to watch list
     public double averageRatingPlannedToWatch() {
         int count = 0;
@@ -101,7 +104,7 @@ public class WatchList {
 
     // REQUIRES: title.length() > 0 and currentlyWatching.size() >= 0
     // EFFECTS: returns the media from the currently watching list with the matching title
-    // otherwise instantiate a new media object with a default title with a default release date, and default genre
+    // otherwise instantiate a new media object using the default constructor
     public Media retrieveMediaCurrentlyWatching(String title) {
         Media m = new Media();
 
@@ -114,8 +117,8 @@ public class WatchList {
     }
 
     // REQUIRES: title.length() > 0 and dropped.size() >= 0
-    // EFFECTS: returns the media from the currently watching list with the matching title
-    // otherwise instantiate a new media object with a default title with a default release date, and default genre
+    // EFFECTS: returns the media from the dropped list with the matching title
+    // otherwise instantiate a new media object using the default constructor
     public Media retrieveMediaDropped(String title) {
         Media m = new Media();
 
@@ -128,8 +131,8 @@ public class WatchList {
     }
 
     // REQUIRES: title.length() > 0 and plannedToWatch.size() >= 0
-    // EFFECTS: returns the media from the currently watching list with the matching title
-    // otherwise instantiate a new media object with a default title with a default release date, and default genre
+    // EFFECTS: returns the media from the plannedToWatch list with the matching title
+    // otherwise instantiate a new media object using the default constructor
     public Media retrieveMediaPlannedToWatch(String title) {
         Media m = new Media();
 
