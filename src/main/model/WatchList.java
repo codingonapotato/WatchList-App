@@ -103,36 +103,42 @@ public class WatchList {
     // EFFECTS: returns the media from the currently watching list with a matching title,
     // otherwise instantiate a new media object using the input title with a default release date, and default genre
     public Media retrieveMediaCurrentlyWatching(String title) {
-        for (Media m : currentlyWatching) {
-            if (m.getTitle() == title) {
-                return m;
+        Media m = new Media();
+
+        for (Media med : currentlyWatching) {
+            if (med.getTitle().equals(title.toLowerCase())) {
+                m = med;
             }
         }
-        return new Media();
+        return m;
     }
 
     // REQUIRES: title.length() > 0 and dropped.size() >= 0
     // EFFECTS: returns the media from the currently watching list with the matching title
     // otherwise instantiate a new media object using the input title with a default release date, and default genre
     public Media retrieveMediaDropped(String title) {
-        for (Media m : dropped) {
-            if (m.getTitle() == title) {
-                return m;
+        Media m = new Media();
+
+        for (Media med : dropped) {
+            if (med.getTitle().equals(title.toLowerCase())) {
+                m = med;
             }
         }
-        return new Media();
+        return m;
     }
 
     // REQUIRES: title.length() > 0 and plannedToWatch.size() >= 0
     // EFFECTS: returns the media from the currently watching list with the matching title
     // otherwise instantiate a new media object using the input title with a default release date, and default genre
     public Media retrieveMediaPlannedToWatch(String title) {
-        for (Media m : plannedToWatch) {
-            if (m.getTitle() == title) {
-                return m;
+        Media m = new Media();
+
+        for (Media med : plannedToWatch) {
+            if (med.getTitle().equals(title.toLowerCase())) {
+                m = med;
             }
         }
-        return new Media();
+        return m;
     }
 
 }
