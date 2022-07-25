@@ -106,7 +106,7 @@ public class WatchList {
         Media m = new Media();
 
         for (Media med : currentlyWatching) {
-            if (med.getTitle().equals(title.toLowerCase())) {
+            if (med.getTitle().toLowerCase().equals(title.toLowerCase())) {
                 m = med;
             }
         }
@@ -120,7 +120,7 @@ public class WatchList {
         Media m = new Media();
 
         for (Media med : dropped) {
-            if (med.getTitle().equals(title.toLowerCase())) {
+            if (med.getTitle().toLowerCase().equals(title.toLowerCase())) {
                 m = med;
             }
         }
@@ -134,11 +134,10 @@ public class WatchList {
         Media m = new Media();
 
         for (Media med : plannedToWatch) {
-            if (med.getTitle().equals(title.toLowerCase())) {
+            if (med.getTitle().toLowerCase().equals(title.toLowerCase())) {
                 m = med;
             }
         }
         return m;
     }
-
 }

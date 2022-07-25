@@ -8,19 +8,30 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MediaTest {
     private Media testMedia;
-    private ReleaseDate releaseDate;
+    private String title;
+    private String genre;
+    private boolean movie;
+    private boolean tvShow;
 
     @BeforeEach
     public void setup() {
-        releaseDate = new ReleaseDate(2020,10,16);
+        title = "Kimetsu no Yaiba - Mugen Train";
+        genre = "anime";
         testMedia = new Media();
+
+        testMedia.setTitle(title);
+        testMedia.setGenre(genre);
+        testMedia.setReleaseDate(2020,10,16);
+
     }
 
     @Test
     public void testConstructor() {
         assertEquals("Kimetsu no Yaiba - Mugen Train",testMedia.getTitle());
-        assertEquals(releaseDate, testMedia.getReleaseDate());
-        assertEquals("Anime", testMedia.getGenre());
+        assertEquals(2020, testMedia.getReleaseDate().getYear());
+        assertEquals(10, testMedia.getReleaseDate().getMonth());
+        assertEquals(16, testMedia.getReleaseDate().getDay());
+        assertEquals("anime", testMedia.getGenre());
         assertTrue(testMedia.getRating() == 0);
     }
 

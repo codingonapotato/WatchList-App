@@ -1,8 +1,6 @@
 package ui;
 
 import model.Media;
-import model.Movie;
-import model.TVShow;
 import model.WatchList;
 
 import java.util.ArrayList;
@@ -61,7 +59,7 @@ public class WatchListApp {
     }
 
     // EFFECTS: Processes steps to make TVSHow for user input "tv"
-    private TVShow processStepsTVShow() {
+    private Media processStepsTVShow() {
         TVShow newTVShow = new TVShow();
         processTitleTV(newTVShow);
         processReleaseDateTV(newTVShow);
