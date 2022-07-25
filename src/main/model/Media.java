@@ -7,13 +7,12 @@ public class Media {
     private String genre;
     private double rating;
 
-    // REQUIRES: title length > 0 and rating is in [0, 100]
-    // EFFECTS: constructs a media object with a title, release date, genre, and rating.
-    // Rating is initialized at 0
-    public Media(String title, ReleaseDate releaseDate, String genre) {
-        this.title = title;
-        this.releaseDate = releaseDate;
-        this.genre = genre;
+    // EFFECTS: constructs a media object with a title = "default", release date = a ReleaseDate object initialized with
+    // "1,1,1", genre = "anime, and rating initialized at 0
+    public Media() {
+        this.title = "default";
+        this.releaseDate = new ReleaseDate(1,1,1);
+        this.genre = "anime";
         this.rating = 0;
     }
 
@@ -22,6 +21,27 @@ public class Media {
     // EFFECTS: sets rating with the user's desired rating input
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    // REQUIRES: rating is in [0, 100]
+    // MODIFIES: this
+    // EFFECTS: sets rating with the user's desired rating input
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    // REQUIRES: rating is in [0, 100]
+    // MODIFIES: this
+    // EFFECTS: sets rating with the user's desired rating input
+    public void setReleaseDate(int year, int month, int day) {
+        this.releaseDate = new ReleaseDate(year, month, year);
+    }
+
+    // REQUIRES: rating is in [0, 100]
+    // MODIFIES: this
+    // EFFECTS: sets rating with the user's desired rating input
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     // EFFECTS: returns the title of the piece of media
