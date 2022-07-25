@@ -3,7 +3,6 @@ package ui;
 import model.Media;
 import model.WatchList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 // adapted from Teller app; refer to link below:
@@ -58,22 +57,18 @@ public class WatchListApp {
         selectList(media);
     }
 
-    // EFFECTS: Processes steps to make TVSHow for user input "tv"
-    private Media processStepsTVShow() {
-        TVShow newTVShow = new TVShow();
-        processTitleTV(newTVShow);
-        processReleaseDateTV(newTVShow);
-        processGenreTV(newTVShow);
-        return newTVShow;
-    }
-
     // EFFECTS: Processes steps to make movie for user input "m"
-    private Movie processStepsMovie() {
-        Movie newMovie = new Movie();
-        processMovieTitle(newMovie);
-        processMovieReleaseDate(newMovie);
-        processMovieGenre(newMovie);
-        return newMovie;
+    private Media processStepsMedia(String option) {
+        Media newMedia = new Media();
+        if (option.equals("m")) {
+            newMedia.setMovie();
+        } else {
+            newMedia.setTVShow();
+        }
+        processMediaTitle(newMedia);
+        processMediaReleaseDate(newMedia);
+        processMediaGenre(newMedia);
+        return newMedia;
     }
 
     private void selectList(Media media) {
@@ -97,13 +92,13 @@ public class WatchListApp {
                 System.out.println("Invalid selection. Please try again!");
             }
         }
-        System.out.println("Media with media title: " + '"' + media.getTitle() + '"'
+        System.out.println("Media with title: " + '"' + media.getTitle() + '"'
                 + " added successfully!");
     }
 
     private Media chooseMedia() {
         String option = "";
-        Media newMedia = new Movie();
+        Media newMedia = new Media();
 
         while (!option.equals("tv") || !option.equals("m")) {
             System.out.println("User please select 'm' if you are adding a Movie");
@@ -112,10 +107,10 @@ public class WatchListApp {
             option = option.toLowerCase();
 
             if (option.equals("tv")) {
-                newMedia = processStepsTVShow();
+                newMedia = processStepsMedia(option);
                 break;
-            } else if (option.equals("m")) {
-                newMedia = processStepsMovie();
+            } else if (option.equals(option)) {
+                newMedia = processStepsMedia(option);
                 break;
             } else {
                 System.out.println("Selection is invalid. Please try again!");
@@ -124,44 +119,44 @@ public class WatchListApp {
         return newMedia;
     }
 
-    private Movie processMovieTitle(Movie newMovie) {
+    private Media processMediaTitle(Media newMedia) {
         String input = "";
         boolean ongoing = true;
         while (ongoing) {
-            System.out.println("What is the title of the Movie?");
+            System.out.println("What is the title of the Media?");
             input = userInput.next();
             input = input.toLowerCase();
 
             if (input.length() >= 1) {
-                newMovie.setTitle(input);
+                newMedia.setTitle(input);
                 ongoing = false;
             } else {
                 System.out.println("Title length should be greater than 1 character");
             }
         }
-        return newMovie;
+        return newMedia;
     }
 
-    private Movie processMovieGenre(Movie newMovie) {
+    private Media processMediaGenre(Media newMedia) {
         String input = "";
         boolean ongoing = true;
         while (ongoing) {
-            System.out.println("What is the genre of the Movie?");
+            System.out.println("What is the genre of the Media?");
             input = userInput.next();
             input = input.toLowerCase();
 
             if (input.length() >= 1) {
-                newMovie.setGenre(input);
+                newMedia.setGenre(input);
                 ongoing = false;
             } else {
                 System.out.println("Title length should be greater than 1 character");
             }
         }
-        return newMovie;
+        return newMedia;
     }
 
     @SuppressWarnings("methodlength")
-    private Movie processMovieReleaseDate(Movie newMovie) {
+    private Media processMediaReleaseDate(Media newMedia) {
         String input = "";
         int year = 0;
         int month = 0;
@@ -169,15 +164,15 @@ public class WatchListApp {
         boolean ongoing = true;
 
         while (ongoing) {
-            System.out.println("\nWhat is the release year of the Movie?");
+            System.out.println("\nWhat is the release year of the Media?");
             input = userInput.next();
             year = Integer.parseInt(input);
 
-            System.out.println("What is the release month of the Movie?");
+            System.out.println("What is the release month of the Media?");
             input = userInput.next();
             month = Integer.parseInt(input);
 
-            System.out.println("What is the release day of the Movie?");
+            System.out.println("What is the release day of the Media?");
             input = userInput.next();
             day = Integer.parseInt(input);
 
@@ -186,80 +181,11 @@ public class WatchListApp {
                 System.out.println("Month must be between 1 to 12");
                 System.out.println("Day must be between 1 to 31");
             } else {
-                newMovie.setReleaseDate(year,month,day);
+                newMedia.setReleaseDate(year,month,day);
                 ongoing = false;
             }
         }
-        return newMovie;
-    }
-
-    private TVShow processGenreTV(TVShow newTVShow) {
-        String input = "";
-        boolean ongoing = true;
-        while (ongoing) {
-            System.out.println("What is the genre of the TV?");
-            input = userInput.next();
-            input = input.toLowerCase();
-
-            if (input.length() >= 1) {
-                newTVShow.setGenre(input);
-                ongoing = false;
-            } else {
-                System.out.println("Title length should be greater than 1 character");
-            }
-        }
-        return newTVShow;
-    }
-
-    @SuppressWarnings("methodlength")
-    private TVShow processReleaseDateTV(TVShow newTVShow) {
-        String input = "";
-        int year = 0;
-        int month = 0;
-        int day = 0;
-        boolean ongoing = true;
-
-        while (ongoing) {
-            System.out.println("\nWhat is the release year of the TV show?");
-            input = userInput.next();
-            year = Integer.parseInt(input);
-
-            System.out.println("What is the release month of the TV show?");
-            input = userInput.next();
-            month = Integer.parseInt(input);
-
-            System.out.println("What is the release day of the TV show?");
-            input = userInput.next();
-            day = Integer.parseInt(input);
-
-            if (year < 1700 | month < 0 | month > 12 | day < 1 | day > 31) {
-                System.out.println("Year must be greater than 1700");
-                System.out.println("Month must be between 1 to 12");
-                System.out.println("Day must be between 1 to 31");
-            } else {
-                newTVShow.setReleaseDate(year,month,day);
-                ongoing = false;
-            }
-        }
-        return newTVShow;
-    }
-
-    private TVShow processTitleTV(TVShow newTVShow) {
-        String input = "";
-        boolean ongoing = true;
-        while (ongoing) {
-            System.out.println("What is the title of the TV show?");
-            input = userInput.next();
-            input = input.toLowerCase();
-
-            if (input.length() >= 1) {
-                newTVShow.setTitle(input);
-                ongoing = false;
-            } else {
-                System.out.println("Title length should be greater than 1 character");
-            }
-        }
-        return newTVShow;
+        return newMedia;
     }
 
     @SuppressWarnings("methodlength")
@@ -291,8 +217,6 @@ public class WatchListApp {
             }
         }
     }
-
-
 
     private void doRating() {
         String chosenOption = ratingOptions();
@@ -373,7 +297,6 @@ public class WatchListApp {
         System.out.println("\td -> Dropped List");
         System.out.println("\tp -> Planning to watch");
     }
-
 
     // MODIFIES: this
     // EFFECTS: initializes watchlist
