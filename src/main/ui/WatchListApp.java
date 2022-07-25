@@ -52,12 +52,14 @@ public class WatchListApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: process user commands to add media to a list
     private void doAddToList() {
         Media media = chooseMedia();
         selectList(media);
     }
 
-    // EFFECTS: Processes steps to make movie for user input "m"
+    // EFFECTS: Processes steps to make movie, returns a new Media object with the desired user input
     private Media processStepsMedia(String option) {
         Media newMedia = new Media();
         if (option.equals("m")) {
@@ -71,6 +73,8 @@ public class WatchListApp {
         return newMedia;
     }
 
+    // MODIFIES: this
+    // EFFECTS: handles user command to choose a watchlist, then adds the media to the chosen list
     private void selectList(Media media) {
         String option = "";
         while (!(option.equals("c")) || !(option.equals("d")) || !(option.equals("p"))) {
@@ -96,6 +100,8 @@ public class WatchListApp {
                 + " added successfully!");
     }
 
+    // EFFECTS: prompts user to select movie or tv show for the media
+    // and begin the steps to add the media to a watch list
     private Media chooseMedia() {
         String option = "";
         Media newMedia = new Media();
@@ -119,6 +125,7 @@ public class WatchListApp {
         return newMedia;
     }
 
+    // EFFECTS: processes user commands to set a media object with the desired title
     private Media processMediaTitle(Media newMedia) {
         String input = "";
         boolean ongoing = true;
@@ -137,6 +144,7 @@ public class WatchListApp {
         return newMedia;
     }
 
+    // EFFECTS: processes user commands to set a media object with the desired genre
     private Media processMediaGenre(Media newMedia) {
         String input = "";
         boolean ongoing = true;
@@ -155,6 +163,7 @@ public class WatchListApp {
         return newMedia;
     }
 
+    // EFFECTS: processes user commands to set the release date of a media object
     @SuppressWarnings("methodlength")
     private Media processMediaReleaseDate(Media newMedia) {
         String input;
@@ -188,6 +197,7 @@ public class WatchListApp {
         return newMedia;
     }
 
+    // EFFECTS: processes user commands to calculate the average rating across a watchlist category
     @SuppressWarnings("methodlength")
     private void doAverage() {
         String input;
@@ -218,6 +228,7 @@ public class WatchListApp {
         }
     }
 
+    // EFFECTS: processes user commands to set a media object with the desired rating
     private void doRating() {
         String chosenOption = ratingOptions();
         Media retrieved = retrieveMediaForRating(chosenOption);
@@ -240,6 +251,7 @@ public class WatchListApp {
         System.out.println("Rating: " + retrieved.getRating() + " has been applied to: " + retrieved.getTitle() + "!");
     }
 
+    // EFFECTS: processes user commands to choose a watchlist category that contains the media object to be rated
     private String ratingOptions() {
         String option = "";
         boolean ongoing = true;
@@ -258,6 +270,7 @@ public class WatchListApp {
         return option;
     }
 
+    // EFFECTS: Retrieves the media object from the user specified watch list category
     private Media retrieveMediaForRating(String option) {
         String input;
         Media toBeRated;
@@ -281,8 +294,7 @@ public class WatchListApp {
         return toBeRated;
     }
 
-    // TODO
-    // EFFECTS: displays starting menu of options to user
+    // EFFECTS: displays start menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tadd -> Add Media");
@@ -291,6 +303,7 @@ public class WatchListApp {
         System.out.println("\tq -> quit");
     }
 
+    // EFFECTS: displays menu of watch list categories to the user
     private void displayListMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> Currently Watching");

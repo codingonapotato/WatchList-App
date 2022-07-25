@@ -1,6 +1,7 @@
 package model;
 
-// Represents a piece of media having a title, release date, a genre, and a rating
+// Represents a piece of media having a title, release date, a genre, a rating, and two states/categories
+// (movie or TV show)
 public class Media {
     private String title;
     private ReleaseDate releaseDate;
@@ -9,11 +10,15 @@ public class Media {
     private boolean movie;
     private boolean tvShow;
 
-    // EFFECTS: constructs a media object with a title = "default", release date = a ReleaseDate object initialized with
-    // "1,1,1", genre = "anime, rating initialized at 0, and movie & tvShow set to false.
+    // REQUIRES: genre.length() && title.length() > 0
+    // EFFECTS: constructs a media object with a title = "default"
+    // release date = a ReleaseDate object initialized with 2000,1,1
+    // genre = "anime"
+    // rating initialized at 0
+    // and movie & tvShow both set to false.
     public Media() {
         this.title = "default";
-        this.releaseDate = new ReleaseDate(1,1,1);
+        this.releaseDate = new ReleaseDate(2000,1,1);
         this.genre = "anime";
         this.rating = 0;
         this.tvShow = false;
@@ -22,26 +27,26 @@ public class Media {
 
     // REQUIRES: rating is in [0, 100]
     // MODIFIES: this
-    // EFFECTS: sets rating with the user's desired rating input
+    // EFFECTS: updates rating to a new value
     public void setRating(double rating) {
         this.rating = rating;
     }
 
-    // REQUIRES: rating is in [0, 100]
+    // REQUIRES: title.length() > 0
     // MODIFIES: this
-    // EFFECTS: sets rating with the user's desired rating input
+    // EFFECTS: updates title to a new value
     public void setTitle(String title) {
         this.title = title;
     }
 
-    // REQUIRES: rating is in [0, 100]
+    // REQUIRES: year >= 1700 && 1 <= month <= 12 %% 1 <= day <= 31
     // MODIFIES: this
-    // EFFECTS: sets rating with the user's desired rating input
+    // EFFECTS: instantiate new ReleaseDate object with new fields for year, month, and day
     public void setReleaseDate(int year, int month, int day) {
         this.releaseDate = new ReleaseDate(year, month, day);
     }
 
-    // REQUIRES: rating is in [0, 100]
+    // REQUIRES: genre.length() > 0
     // MODIFIES: this
     // EFFECTS: sets rating with the user's desired rating input
     public void setGenre(String genre) {

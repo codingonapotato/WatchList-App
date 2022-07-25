@@ -151,6 +151,7 @@ class WatchListTest {
         // Check outputs:
         assertEquals(movie1, testWatchList.retrieveMediaCurrentlyWatching(movie1.getTitle().toLowerCase()));
         assertEquals(show1, testWatchList.retrieveMediaCurrentlyWatching(show1.getTitle().toLowerCase()));
+        assertEquals("default", testWatchList.retrieveMediaCurrentlyWatching("generic title").getTitle());
     }
 
     @Test
@@ -162,6 +163,7 @@ class WatchListTest {
         // Check outputs:
         assertEquals(movie1, testWatchList.retrieveMediaDropped(movie1.getTitle().toLowerCase()));
         assertEquals(show1, testWatchList.retrieveMediaDropped(show1.getTitle().toLowerCase()));
+        assertEquals("default", testWatchList.retrieveMediaDropped("generic title").getTitle());
     }
 
     @Test
@@ -173,5 +175,6 @@ class WatchListTest {
         // Check outputs:
         assertEquals(movie1, testWatchList.retrieveMediaPlannedToWatch(movie1.getTitle().toLowerCase()));
         assertEquals(show1, testWatchList.retrieveMediaPlannedToWatch(show1.getTitle().toLowerCase()));
+        assertEquals("default", testWatchList.retrieveMediaPlannedToWatch("generic title").getTitle());
     }
 }
