@@ -100,8 +100,8 @@ public class WatchList {
     }
 
     // REQUIRES: title.length() > 0 and currentlyWatching.size() >= 0
-    // EFFECTS: returns the media from the currently watching list with a matching title,
-    // otherwise instantiate a new media object using the input title with a default release date, and default genre
+    // EFFECTS: returns the media from the currently watching list with the matching title
+    // otherwise instantiate a new media object with a default title with a default release date, and default genre
     public Media retrieveMediaCurrentlyWatching(String title) {
         Media m = new Media();
 
@@ -115,7 +115,7 @@ public class WatchList {
 
     // REQUIRES: title.length() > 0 and dropped.size() >= 0
     // EFFECTS: returns the media from the currently watching list with the matching title
-    // otherwise instantiate a new media object using the input title with a default release date, and default genre
+    // otherwise instantiate a new media object with a default title with a default release date, and default genre
     public Media retrieveMediaDropped(String title) {
         Media m = new Media();
 
@@ -129,7 +129,7 @@ public class WatchList {
 
     // REQUIRES: title.length() > 0 and plannedToWatch.size() >= 0
     // EFFECTS: returns the media from the currently watching list with the matching title
-    // otherwise instantiate a new media object using the input title with a default release date, and default genre
+    // otherwise instantiate a new media object with a default title with a default release date, and default genre
     public Media retrieveMediaPlannedToWatch(String title) {
         Media m = new Media();
 

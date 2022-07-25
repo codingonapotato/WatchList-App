@@ -38,7 +38,6 @@ public class WatchListApp {
                 processCommand(userCommand);
             }
         }
-
         System.out.println("\n See you next time!");
     }
 
@@ -89,7 +88,6 @@ public class WatchListApp {
 
             if (option.equals("c")) {
                 watchlist.addCurrentlyWatching(media);
-                System.out.println(watchlist.getCurrentlyWatching().size());
                 break;
             } else if (option.equals("d")) {
                 watchlist.addDropped(media);
@@ -266,13 +264,33 @@ public class WatchListApp {
         return newTVShow;
     }
 
-    // TODO:
+    @SuppressWarnings("methodlength")
     private void doAverage() {
-        String option = "";
-        while (!(option.equals("c")) || !(option.equals("d")) || !(option.equals("p"))) {
-            System.out.println("Which list would you like to add the media to?");
-            option = userInput.next();
-            option = option.toLowerCase();
+        String input = "";
+        boolean ongoing = true;
+        double average;
+
+        while (ongoing) {
+            displayListMenu();
+            input = userInput.next();
+            input = input.toLowerCase();
+
+            if (input.equals("c") && !watchlist.getCurrentlyWatching().isEmpty()) {
+                average = watchlist.averageRatingCurrentlyWatching();
+                System.out.println("The average rating in the currently watching list is: " + average);
+                break;
+            } else if (input.equals("d") && !watchlist.getDropped().isEmpty()) {
+                average = watchlist.averageRatingDropped();
+                System.out.println("The average rating in the dropped watching list is: " + average);
+                break;
+            } else if (input.equals("p") && !watchlist.getPlannedToWatch().isEmpty()) {
+                average = watchlist.averageRatingPlannedToWatch();
+                System.out.println("The average rating in the planned to watch list is: " + average);
+                break;
+            } else {
+                System.out.println("Invalid selection or list is empty. Please try again!");
+                ongoing = false;
+            }
         }
     }
 
