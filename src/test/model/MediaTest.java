@@ -3,8 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MediaTest {
     private Media testMedia;
@@ -27,12 +26,21 @@ class MediaTest {
 
     @Test
     public void testConstructor() {
+        // Verify outputs
         assertEquals("Kimetsu no Yaiba - Mugen Train",testMedia.getTitle());
         assertEquals(2020, testMedia.getReleaseDate().getYear());
         assertEquals(10, testMedia.getReleaseDate().getMonth());
         assertEquals(16, testMedia.getReleaseDate().getDay());
         assertEquals("anime", testMedia.getGenre());
         assertTrue(testMedia.getRating() == 0);
+        assertFalse(testMedia.getMovie());
+        assertFalse(testMedia.getTVShow());
+
+        // Test setters for movie and tv show field:
+        testMedia.setTVShow();
+        testMedia.setMovie();
+        assertTrue(testMedia.getTVShow());
+        assertTrue(testMedia.getMovie());
     }
 
     @Test
