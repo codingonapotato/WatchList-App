@@ -108,7 +108,7 @@ public class WatchList {
                 return m;
             }
         }
-        return new Media(title, new ReleaseDate(1,1,1), "Anime");
+        return new Media();
     }
 
     // REQUIRES: title.length() > 0 and dropped.size() >= 0
@@ -120,7 +120,7 @@ public class WatchList {
                 return m;
             }
         }
-        return new Media(title, new ReleaseDate(1,1,1), "Anime");
+        return new Media();
     }
 
     // REQUIRES: title.length() > 0 and plannedToWatch.size() >= 0
@@ -132,7 +132,7 @@ public class WatchList {
                 return m;
             }
         }
-        return new Media(title, new ReleaseDate(1,1,1), "Anime");
+        return new Media();
     }
 
 }

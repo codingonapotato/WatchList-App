@@ -13,7 +13,7 @@ class MediaTest {
     @BeforeEach
     public void setup() {
         releaseDate = new ReleaseDate(2020,10,16);
-        testMedia = new Media("Kimetsu no Yaiba - Mugen Train", releaseDate, "Anime");
+        testMedia = new Media();
     }
 
     @Test
