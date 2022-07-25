@@ -20,7 +20,7 @@ public class WatchListApp {
     // EFFECTS: processes user input
     private void runApp() {
         boolean remainRunning = true;
-        String userCommand = "";
+        String userCommand;
 
         init();
 
@@ -109,7 +109,7 @@ public class WatchListApp {
             if (option.equals("tv")) {
                 newMedia = processStepsMedia(option);
                 break;
-            } else if (option.equals(option)) {
+            } else if (option.equals("m")) {
                 newMedia = processStepsMedia(option);
                 break;
             } else {
@@ -157,10 +157,10 @@ public class WatchListApp {
 
     @SuppressWarnings("methodlength")
     private Media processMediaReleaseDate(Media newMedia) {
-        String input = "";
-        int year = 0;
-        int month = 0;
-        int day = 0;
+        String input;
+        int year;
+        int month;
+        int day;
         boolean ongoing = true;
 
         while (ongoing) {
@@ -190,7 +190,7 @@ public class WatchListApp {
 
     @SuppressWarnings("methodlength")
     private void doAverage() {
-        String input = "";
+        String input;
         boolean ongoing = true;
         double average;
 
@@ -221,7 +221,7 @@ public class WatchListApp {
     private void doRating() {
         String chosenOption = ratingOptions();
         Media retrieved = retrieveMediaForRating(chosenOption);
-        String input = "";
+        String input;
         boolean ongoing = true;
         double rating;
 
@@ -259,7 +259,7 @@ public class WatchListApp {
     }
 
     private Media retrieveMediaForRating(String option) {
-        String input = "";
+        String input;
         Media toBeRated;
 
         while (true) {
