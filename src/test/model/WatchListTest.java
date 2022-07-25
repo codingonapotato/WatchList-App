@@ -3,24 +3,28 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class WatchListTest {
     private WatchList testWatchList;
-    private Movie movie1;
-    private Movie movie2;
-    private TVShow show1;
-    private TVShow show2;
+    private Media movie1;
+    private Media show1;
 
 
     @BeforeEach
     public void setup() {
         testWatchList = new WatchList();
-        movie1 = new Movie("Jujutsu Kaisen 0", new ReleaseDate(2021, 12,24), "Anime");
-        movie2 = new Movie("My Neighbor Totoro", new ReleaseDate(1988, 4,16), "Anime");
-        show1 = new TVShow("Spy x Family", new ReleaseDate(2022, 4,9), "Anime");
-        show2 = new TVShow("Re:Zero - Starting life in Another World", new ReleaseDate(2016, 4,4),
-                "Anime");
+        movie1 = new Media();
+        movie1.setTitle("jujutsu kaisen 0");
+        movie1.setReleaseDate(2021, 12,24);
+        movie1.setGenre("anime");
+
+        show1 = new Media();
+        show1.setTitle("spy x family");
+        show1.setReleaseDate(2016, 4,13);
+        show1.setGenre("anime");
     }
 
     @Test
@@ -35,13 +39,11 @@ class WatchListTest {
     public void testAddCurrentlyWatching() {
         // Set-up and check outputs:
         assertTrue(testWatchList.addCurrentlyWatching(movie1));
-        assertTrue(testWatchList.addCurrentlyWatching(movie2));
         assertTrue(testWatchList.addCurrentlyWatching(show1));
         assertFalse(testWatchList.addCurrentlyWatching(movie1));
         // Verify outputs:
-        assertTrue(3 == testWatchList.getCurrentlyWatching().size());
+        assertTrue(2 == testWatchList.getCurrentlyWatching().size());
         assertTrue(testWatchList.getCurrentlyWatching().contains(movie1));
-        assertTrue(testWatchList.getCurrentlyWatching().contains(movie2));
         assertTrue(testWatchList.getCurrentlyWatching().contains(show1));
     }
 
@@ -49,14 +51,12 @@ class WatchListTest {
     public void testAddDropped() {
         // Set-up and check outputs:
         assertTrue(testWatchList.addDropped(movie1));
-        assertTrue(testWatchList.addDropped(movie2));
         assertTrue(testWatchList.addDropped(show1));
         assertFalse(testWatchList.addDropped(movie1));
 
         // Verify outputs:
-        assertTrue(3 == testWatchList.getDropped().size());
+        assertTrue(2 == testWatchList.getDropped().size());
         assertTrue(testWatchList.getDropped().contains(movie1));
-        assertTrue(testWatchList.getDropped().contains(movie2));
         assertTrue(testWatchList.getDropped().contains(show1));
     }
 
@@ -64,14 +64,12 @@ class WatchListTest {
     public void testAddPlannedToWatch() {
         // Set-up and check outputs:
         assertTrue(testWatchList.addPlannedToWatch(movie1));
-        assertTrue(testWatchList.addPlannedToWatch(movie2));
         assertTrue(testWatchList.addPlannedToWatch(show1));
         assertFalse(testWatchList.addPlannedToWatch(movie1));
 
         // Verify outputs:
-        assertTrue(3 == testWatchList.getPlannedToWatch().size());
+        assertTrue(2 == testWatchList.getPlannedToWatch().size());
         assertTrue(testWatchList.getPlannedToWatch().contains(movie1));
-        assertTrue(testWatchList.getPlannedToWatch().contains(movie2));
         assertTrue(testWatchList.getPlannedToWatch().contains(show1));
     }
 
@@ -151,10 +149,8 @@ class WatchListTest {
         testWatchList.addCurrentlyWatching(show1);
 
         // Check outputs:
-        assertEquals(movie1, testWatchList.retrieveMediaCurrentlyWatching("Jujutsu Kaisen 0"));
-        assertEquals(show1, testWatchList.retrieveMediaCurrentlyWatching("Spy x Family"));
-        Media otherwiseCase = testWatchList.retrieveMediaCurrentlyWatching("Rem");
-        assertEquals(otherwiseCase.getTitle(), "Rem");
+        assertEquals(movie1, testWatchList.retrieveMediaCurrentlyWatching(movie1.getTitle().toLowerCase()));
+        assertEquals(show1, testWatchList.retrieveMediaCurrentlyWatching(show1.getTitle().toLowerCase()));
     }
 
     @Test
@@ -164,10 +160,8 @@ class WatchListTest {
         testWatchList.addDropped(show1);
 
         // Check outputs:
-        assertEquals(movie1, testWatchList.retrieveMediaDropped("Jujutsu Kaisen 0"));
-        assertEquals(show1, testWatchList.retrieveMediaDropped("Spy x Family"));
-        Media otherwiseCase = testWatchList.retrieveMediaDropped("Ram");
-        assertEquals(otherwiseCase.getTitle(), "Ram");
+        assertEquals(movie1, testWatchList.retrieveMediaDropped(movie1.getTitle().toLowerCase()));
+        assertEquals(show1, testWatchList.retrieveMediaDropped(show1.getTitle().toLowerCase()));
     }
 
     @Test
@@ -177,9 +171,7 @@ class WatchListTest {
         testWatchList.addPlannedToWatch(show1);
 
         // Check outputs:
-        assertEquals(movie1, testWatchList.retrieveMediaPlannedToWatch("Jujutsu Kaisen 0"));
-        assertEquals(show1, testWatchList.retrieveMediaPlannedToWatch("Spy x Family"));
-        Media otherwiseCase = testWatchList.retrieveMediaPlannedToWatch("Bethroldt");
-        assertEquals(otherwiseCase.getTitle(), "Bethroldt");
+        assertEquals(movie1, testWatchList.retrieveMediaPlannedToWatch(movie1.getTitle().toLowerCase()));
+        assertEquals(show1, testWatchList.retrieveMediaPlannedToWatch(show1.getTitle().toLowerCase()));
     }
 }
