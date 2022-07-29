@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Represents a watch list with fields representing different categories of watch lists that all store media objects
-public class WatchList {
+public class WatchList implements Writable {
     private ArrayList<Media> currentlyWatching;
     private ArrayList<Media> dropped;
     private ArrayList<Media> plannedToWatch;
@@ -142,5 +145,10 @@ public class WatchList {
             }
         }
         return m;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }

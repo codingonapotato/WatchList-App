@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a piece of media having a title, release date, a genre, a rating, and two states/categories
 // (movie or TV show)
-public class Media {
+public class Media implements Writable {
     private String title;
     private ReleaseDate releaseDate;
     private String genre;
@@ -91,5 +94,10 @@ public class Media {
     // EFFECTS: returns true if the media is a TV Show, false otherwise
     public boolean getTVShow() {
         return tvShow;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }

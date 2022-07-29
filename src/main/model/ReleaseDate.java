@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a release date with a year, month, day
-public class ReleaseDate {
+public class ReleaseDate implements Writable {
     private int year;
     private int month;
     private int day;
@@ -29,4 +32,8 @@ public class ReleaseDate {
         return this.day;
     }
 
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
 }
