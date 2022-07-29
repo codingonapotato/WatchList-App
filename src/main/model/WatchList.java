@@ -1,15 +1,17 @@
 package model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // Represents a watch list with fields representing different categories of watch lists that all store media objects
 public class WatchList implements Writable {
-    private ArrayList<Media> currentlyWatching;
-    private ArrayList<Media> dropped;
-    private ArrayList<Media> plannedToWatch;
+    private List<Media> currentlyWatching;
+    private List<Media> dropped;
+    private List<Media> plannedToWatch;
 
     // EFFECTS: instantiates a WatchList object with fields initialized with empty ArrayLists
     public WatchList() {
@@ -91,17 +93,17 @@ public class WatchList implements Writable {
     }
 
     // EFFECTS: returns the currently watching list
-    public ArrayList<Media> getCurrentlyWatching() {
+    public List<Media> getCurrentlyWatching() {
         return currentlyWatching;
     }
 
     // EFFECTS: returns the dropped list
-    public ArrayList<Media> getDropped() {
+    public List<Media> getDropped() {
         return dropped;
     }
 
     // EFFECTS: returns the planned to watch list
-    public ArrayList<Media> getPlannedToWatch() {
+    public List<Media> getPlannedToWatch() {
         return plannedToWatch;
     }
 
@@ -149,6 +151,20 @@ public class WatchList implements Writable {
 
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("currentlyWatching", mediaListToJson(currentlyWatching));
+        json.put("dropped", mediaListToJson(dropped));
+        json.put("plannedToWatch", mediaListToJson(plannedToWatch));
+        return json;
+    }
+
+    // EFFECTS: return Media in List<Media> as a JSON array
+    private static JSONArray mediaListToJson(List<Media> mediaList) {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Media m : mediaList) {
+            jsonArray.put(m.toJson());
+        }
+        return jsonArray;
     }
 }
