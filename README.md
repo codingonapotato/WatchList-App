@@ -22,3 +22,7 @@ and take the best features that I love from those services and try to implement 
 - As a user, I would like to keep track and organize different watch lists such as a \
 *currently watching*, *planning to watch*, or *dropped* list
 - As a user, I would like to calculate the average rating across a category of my watchlist
+
+
+- As a user, I would like to save the current state of my Watch list to file
+- As a user, I would like to be able to load my saved Watch list from a file
