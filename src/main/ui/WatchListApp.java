@@ -94,6 +94,7 @@ public class WatchListApp {
                 break;
             } else {
                 System.out.println("Invalid selection. Please try again!");
+                runApp(); // Return user back to main menu open doing a bad thing
             }
         }
         System.out.println("Media with title: " + '"' + media.getTitle() + '"'
