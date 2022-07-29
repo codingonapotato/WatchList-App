@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -98,6 +99,13 @@ public class Media implements Writable {
 
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("releaseDate", releaseDate);
+        json.put("genre", genre);
+        json.put("rating", rating);
+        json.put("movie", movie);
+        json.put("tvShow", tvShow);
+        return json;
     }
 }
