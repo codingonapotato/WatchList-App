@@ -9,29 +9,18 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class JsonWriterTest {
+// adapted JsonSerializationDemo; refer to link below:
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+public class JsonWriterTest extends RunBefore{
     private WatchList watchList;
-    private Media movie;
-    private Media tv;
 
     public JsonWriterTest() {
     }
 
     @BeforeEach
     public void runBefore() {
-        watchList = new WatchList();
-        movie = new Media();
-        movie.setTitle("ponyo");
-        movie.setReleaseDate(2000,12,31);
-        movie.setRating(57.5);
-        movie.setGenre("anime");
-        movie.setMovie(); // So, this is a movie now!
-        tv = new Media();
-        tv.setTitle("Jujutsu Kaisen");
-        tv.setReleaseDate(2020,4,27);
-        tv.setRating(100.0);
-        tv.setGenre("anime");
-        tv.setTVShow(); // So, this is a movie now!
+        RunBefore rb = new RunBefore();
+        rb.runBefore();
     }
 
     @Test

@@ -1,7 +1,5 @@
 package persistence;
 
-
-
 import model.WatchList;
 
 import java.io.File;
