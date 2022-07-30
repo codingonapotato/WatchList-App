@@ -14,13 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonWriterTest extends RunBefore{
     private WatchList watchList;
 
-    public JsonWriterTest() {
-    }
-
     @BeforeEach
     public void runBefore() {
         RunBefore rb = new RunBefore();
         rb.runBefore();
+
+        watchList = new WatchList();
     }
 
     @Test

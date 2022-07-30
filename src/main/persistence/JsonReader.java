@@ -20,7 +20,9 @@ public class JsonReader {
     // EFFECTS: read WatchList from file and return the WatchList
     // throws IOException if an error happens when reading data from the file
     public WatchList read() throws IOException {
-        return null; // stub
+        String jsonData = readFile(sourceFile);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parseWatchList(jsonObject);
     }
 
     // EFFECTS: read source file as a string and return the string
