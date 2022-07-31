@@ -37,10 +37,10 @@ class MediaTest {
         assertFalse(testMedia.getTVShow());
 
         // Test setters for movie and tv show field:
-        testMedia.setTVShow();
-        testMedia.setMovie();
+        testMedia.setTVShow(true);
+        testMedia.setMovie(false);
         assertTrue(testMedia.getTVShow());
-        assertTrue(testMedia.getMovie());
+        assertFalse(testMedia.getMovie());
     }
 
     @Test

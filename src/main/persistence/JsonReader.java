@@ -1,9 +1,18 @@
 package persistence;
 
+import model.Media;
+import model.ReleaseDate;
 import model.WatchList;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Stream;
+
 
 // adapted JsonSerializationDemo; refer to link below:
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
@@ -27,18 +36,36 @@ public class JsonReader {
 
     // EFFECTS: read source file as a string and return the string
     private String readFile(String sourceFile) throws IOException {
-        return null; // stub
+        StringBuilder contentConstructor = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(Paths.get(sourceFile), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentConstructor.append(s));
+        }
+
+        return contentConstructor.toString();
     }
 
     // EFFECTS: parse WatchList from JSON object and return the WatchList
     private WatchList parseWatchList(JSONObject jsonObject) {
-        return null; // stub
+        JSONObject currentlyWatching = jsonObject.getJSONObject("currentlyWatching");
+        JSONObject dropped = jsonObject.getJSONObject("dropped");
+        JSONObject plannedToWatch = jsonObject.getJSONObject("plannedToWatch");
+        WatchList watchList = new WatchList();
+
+        addCurrentlyWatching(watchList, currentlyWatching);
+        addDropped(watchList, dropped);
+        addPlannedToWatch(watchList, plannedToWatch);
+        return watchList;
     }
 
     // MODIFIES: watchList
     // EFFECTS: parses currentlyWatching from JSON object and adds them to WatchList
     private void addCurrentlyWatching(WatchList watchList, JSONObject jsonObject) {
-
+        JSONArray  jsonArray = jsonObject.getJSONArray("currentlyWatching");
+        for (Object json : jsonArray) {
+            JSONObject nextMedia = (JSONObject) json;
+            addMedia(watchList, nextMedia);
+        }
     }
 
     // MODIFIES: watchList
@@ -55,7 +82,21 @@ public class JsonReader {
 
     // MODIFIES: watchList
     // EFFECTS: parses media from JSON object and adds it to WatchList
-    private void addMedia(WatchList wl, JSONObject jsonObject) {
+    private void addMedia(WatchList watchList, JSONObject jsonObject) {
+        Media media = new Media();
+        String title = jsonObject.getString("title");
+        media.setTitle(title); // set title
+        JSONObject releaseDateJson = jsonObject.getJSONObject("releaseDate");
+        int day = releaseDateJson.getInt("day");
+        int month = releaseDateJson.getInt("month");
+        int year = releaseDateJson.getInt("year");
+        media.setReleaseDate(year, month, day); // set ReleaseDate
+        String genre = jsonObject.getString("genre");
+        media.setGenre(genre);
+        double rating = jsonObject.getDouble("rating");
+        media.setRating(rating);
+        boolean movie = jsonObject.getBoolean("movie");
+        media.setMovie(movie);
 
     }
 

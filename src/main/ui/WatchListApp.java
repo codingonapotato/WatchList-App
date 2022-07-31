@@ -63,9 +63,9 @@ public class WatchListApp {
     private Media processStepsMedia(String option) {
         Media newMedia = new Media();
         if (option.equals("m")) {
-            newMedia.setMovie();
+            newMedia.setMovie(true);
         } else {
-            newMedia.setTVShow();
+            newMedia.setTVShow(true);
         }
         processMediaTitle(newMedia);
         processMediaReleaseDate(newMedia);

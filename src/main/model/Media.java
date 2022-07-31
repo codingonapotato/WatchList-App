@@ -57,14 +57,14 @@ public class Media implements Writable {
         this.genre = genre;
     }
 
-    // EFFECTS: sets movie to true
-    public void setMovie() {
-        this.movie = true;
+    // EFFECTS: sets movie to the given boolean
+    public void setMovie(boolean bool) {
+        this.movie = bool;
     }
 
-    // EFFECTS: set tvShow to true
-    public void setTVShow() {
-        this.tvShow = true;
+    // EFFECTS: set tvShow to the given boolean
+    public void setTVShow(boolean bool) {
+        this.tvShow = bool;
     }
 
     // EFFECTS: returns the title of the piece of media
@@ -101,7 +101,7 @@ public class Media implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("title", title);
-        json.put("releaseDate", releaseDate);
+        json.put("releaseDate", releaseDate.toJson());
         json.put("genre", genre);
         json.put("rating", rating);
         json.put("movie", movie);
