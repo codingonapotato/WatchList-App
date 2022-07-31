@@ -47,9 +47,9 @@ public class JsonReader {
 
     // EFFECTS: parse WatchList from JSON object and return the WatchList
     private WatchList parseWatchList(JSONObject jsonObject) {
-        JSONObject currentlyWatching = jsonObject.getJSONObject("currentlyWatching");
-        JSONObject dropped = jsonObject.getJSONObject("dropped");
-        JSONObject plannedToWatch = jsonObject.getJSONObject("plannedToWatch");
+        JSONArray currentlyWatching = jsonObject.getJSONArray("currentlyWatching");
+        JSONArray dropped = jsonObject.getJSONArray("dropped");
+        JSONArray plannedToWatch = jsonObject.getJSONArray("plannedToWatch");
         WatchList watchList = new WatchList();
 
         addCurrentlyWatching(watchList, currentlyWatching);
@@ -60,9 +60,8 @@ public class JsonReader {
 
     // MODIFIES: watchList
     // EFFECTS: parses currentlyWatching from JSON object and adds them to WatchList
-    private void addCurrentlyWatching(WatchList watchList, JSONObject jsonObject) {
-        JSONArray  jsonArray = jsonObject.getJSONArray("currentlyWatching");
-        for (Object json : jsonArray) {
+    private void addCurrentlyWatching(WatchList watchList, JSONArray jsonObject) {
+        for (Object json : jsonObject) {
             JSONObject nextMedia = (JSONObject) json;
             addMedia(watchList, nextMedia);
         }
@@ -70,14 +69,20 @@ public class JsonReader {
 
     // MODIFIES: watchList
     // EFFECTS: parses dropped from JSON object and adds them to WatchList
-    private void addDropped(WatchList watchList, JSONObject jsonObject) {
-
+    private void addDropped(WatchList watchList, JSONArray jsonObject) {
+        for (Object json : jsonObject) {
+            JSONObject nextMedia = (JSONObject) json;
+            addMedia(watchList, nextMedia);
+        }
     }
 
     // MODIFIES: watchList
     // EFFECTS: parses plannedToWatch from JSON object and adds them to WatchList
-    private void addPlannedToWatch(WatchList watchList, JSONObject jsonObject) {
-
+    private void addPlannedToWatch(WatchList watchList, JSONArray jsonObject) {
+        for (Object json : jsonObject) {
+            JSONObject nextMedia = (JSONObject) json;
+            addMedia(watchList, nextMedia);
+        }
     }
 
     // MODIFIES: watchList
@@ -97,7 +102,8 @@ public class JsonReader {
         media.setRating(rating);
         boolean movie = jsonObject.getBoolean("movie");
         media.setMovie(movie);
-
+        boolean tv = jsonObject.getBoolean("tvShow");
+        media.setTVShow(tv);
     }
 
 }

@@ -1,6 +1,7 @@
 package persistence;
 
 import model.WatchList;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +30,8 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: write JSON representation of WatchList to file
     public void writeFile(WatchList watchList) {
-
+        JSONObject jsonObject = watchList.toJson();
+        saveToFile(jsonObject.toString(TAB));
     }
 
     // MODIFIES: this
@@ -41,6 +43,6 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: write string to file
     private void saveToFile(String json) {
-
+        writer.print(json);
     }
 }
