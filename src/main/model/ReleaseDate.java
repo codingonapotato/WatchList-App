@@ -34,6 +34,10 @@ public class ReleaseDate implements Writable {
 
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject json = new JSONObject();
+        json.put("year", year);
+        json.put("month", month);
+        json.put("day", day);
+        return json;
     }
 }
