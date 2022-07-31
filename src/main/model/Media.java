@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.util.Objects;
+
 // Represents a piece of media having a title, release date, a genre, a rating, and two states/categories
 // (movie or TV show)
 public class Media implements Writable {
@@ -109,4 +111,21 @@ public class Media implements Writable {
         return json;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass())  {
+            return false;
+        } else {
+            Media media = (Media) o;
+            return Double.compare(media.rating, rating) == 0 && movie == media.movie && tvShow == media.tvShow
+                && title.equals(media.title) && releaseDate.equals(media.releaseDate) && genre.equals(media.genre);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, releaseDate, genre, rating, movie, tvShow);
+    }
 }

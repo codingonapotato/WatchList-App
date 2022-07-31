@@ -87,7 +87,7 @@ public class JsonWriterTest {
             assertEquals(2, watchList.getPlannedToWatch().size());
             assertEquals(2, watchList.getDropped().size());
 
-            assertEquals(movie, watchList.getCurrentlyWatching().get(0));
+            assertTrue(movie.equals(watchList.getCurrentlyWatching().get(0)));
             assertEquals(tv, watchList.getCurrentlyWatching().get(1));
             assertEquals(movie, watchList.getDropped().get(0));
             assertEquals(tv, watchList.getDropped().get(1));
