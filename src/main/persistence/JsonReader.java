@@ -63,7 +63,8 @@ public class JsonReader {
     private void addCurrentlyWatching(WatchList watchList, JSONArray jsonObject) {
         for (Object json : jsonObject) {
             JSONObject nextMedia = (JSONObject) json;
-            addMedia(watchList, nextMedia);
+            Media media = addMedia(watchList, nextMedia);
+            watchList.addCurrentlyWatching(media);
         }
     }
 
@@ -72,7 +73,8 @@ public class JsonReader {
     private void addDropped(WatchList watchList, JSONArray jsonObject) {
         for (Object json : jsonObject) {
             JSONObject nextMedia = (JSONObject) json;
-            addMedia(watchList, nextMedia);
+            Media media = addMedia(watchList, nextMedia);
+            watchList.addDropped(media);
         }
     }
 
@@ -81,13 +83,14 @@ public class JsonReader {
     private void addPlannedToWatch(WatchList watchList, JSONArray jsonObject) {
         for (Object json : jsonObject) {
             JSONObject nextMedia = (JSONObject) json;
-            addMedia(watchList, nextMedia);
+            Media media = addMedia(watchList, nextMedia);
+            watchList.addPlannedToWatch(media);
         }
     }
 
     // MODIFIES: watchList
     // EFFECTS: parses media from JSON object and adds it to WatchList
-    private void addMedia(WatchList watchList, JSONObject jsonObject) {
+    private Media addMedia(WatchList watchList, JSONObject jsonObject) {
         Media media = new Media();
         String title = jsonObject.getString("title");
         media.setTitle(title); // set title
@@ -104,6 +107,7 @@ public class JsonReader {
         media.setMovie(movie);
         boolean tv = jsonObject.getBoolean("tvShow");
         media.setTVShow(tv);
+        return media;
     }
 
 }

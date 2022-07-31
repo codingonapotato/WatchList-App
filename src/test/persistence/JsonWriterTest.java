@@ -11,13 +11,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 // adapted JsonSerializationDemo; refer to link below:
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
-public class JsonWriterTest extends RunBefore{
+public class JsonWriterTest {
     private WatchList watchList;
+    private Media movie;
+    private Media tv;
 
     @BeforeEach
-    public void runBefore() {
-        RunBefore rb = new RunBefore();
-        rb.runBefore();
+    public void setup() {
+        movie = new Media();
+        movie.setTitle("ponyo");
+        movie.setReleaseDate(2000,12,31);
+        movie.setRating(57.5);
+        movie.setGenre("anime");
+        movie.setMovie(true); // So, this is a movie now!
+
+        tv = new Media();
+        tv.setTitle("Jujutsu Kaisen");
+        tv.setReleaseDate(2020,4,27);
+        tv.setRating(100.0);
+        tv.setGenre("anime");
+        tv.setTVShow(true); // So, this is a TV show now!
 
         watchList = new WatchList();
     }

@@ -1,0 +1,80 @@
+{
+    "currentlyWatching": [
+        {
+            "movie": true,
+            "releaseDate": {
+                "month": 12,
+                "year": 2000,
+                "day": 31
+            },
+            "tvShow": false,
+            "genre": "anime",
+            "rating": 57.5,
+            "title": "ponyo"
+        },
+        {
+            "movie": false,
+            "releaseDate": {
+                "month": 4,
+                "year": 2020,
+                "day": 27
+            },
+            "tvShow": true,
+            "genre": "anime",
+            "rating": 100,
+            "title": "Jujutsu Kaisen"
+        }
+    ],
+    "plannedToWatch": [
+        {
+            "movie": true,
+            "releaseDate": {
+                "month": 12,
+                "year": 2000,
+                "day": 31
+            },
+            "tvShow": false,
+            "genre": "anime",
+            "rating": 57.5,
+            "title": "ponyo"
+        },
+        {
+            "movie": false,
+            "releaseDate": {
+                "month": 4,
+                "year": 2020,
+                "day": 27
+            },
+            "tvShow": true,
+            "genre": "anime",
+            "rating": 100,
+            "title": "Jujutsu Kaisen"
+        }
+    ],
+    "dropped": [
+        {
+            "movie": true,
+            "releaseDate": {
+                "month": 12,
+                "year": 2000,
+                "day": 31
+            },
+            "tvShow": false,
+            "genre": "anime",
+            "rating": 57.5,
+            "title": "ponyo"
+        },
+        {
+            "movie": false,
+            "releaseDate": {
+                "month": 4,
+                "year": 2020,
+                "day": 27
+            },
+            "tvShow": true,
+            "genre": "anime",
+            "rating": 100,
+            "title": "Jujutsu Kaisen"
+        }
+    ]
+}

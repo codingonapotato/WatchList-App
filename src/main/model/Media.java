@@ -108,4 +108,5 @@ public class Media implements Writable {
         json.put("tvShow", tvShow);
         return json;
     }
+
 }

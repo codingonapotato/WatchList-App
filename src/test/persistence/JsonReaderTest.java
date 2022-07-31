@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JsonReaderTest extends RunBefore{
 
     @BeforeEach
-    public void runBefore() {
+    public void setup() {
         RunBefore rb = new RunBefore();
         rb.runBefore();
     }
