@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class MediaTest {
     private Media testMedia;
@@ -77,6 +78,8 @@ class MediaTest {
         assertTrue(testMedia.equals(testMedia));
         assertTrue(testMedia.equals(testMedia2));
         testMedia2.setRating(21.0);
+        assertFalse(testMedia.equals(testMedia2));
+        testMedia.setRating(39);
         assertFalse(testMedia.equals(testMedia2));
         assertFalse(testMedia.equals(null));
         assertFalse(testMedia.equals(title));

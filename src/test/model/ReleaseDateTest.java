@@ -31,14 +31,17 @@ public class ReleaseDateTest {
     public void testEquals() {
         assertFalse(testReleaseDate.equals(null));
         assertFalse(testReleaseDate.equals(year));
+        assertTrue(testReleaseDate.equals(testReleaseDate2)); // every field same
         assertFalse(testReleaseDate.equals(testReleaseDate3));
-        testReleaseDate3.setDay(1);
-        assertFalse(testReleaseDate.equals(testReleaseDate3));
-        testReleaseDate3.setMonth(4);
-        assertFalse(testReleaseDate.equals(testReleaseDate3));
-        assertTrue(testReleaseDate.equals(testReleaseDate));
-        assertTrue(testReleaseDate.equals(testReleaseDate2));
         testReleaseDate2.setYear(2000);
+        assertFalse(testReleaseDate.equals(testReleaseDate2)); // only year diff
+        testReleaseDate2.setYear(2020);
+        testReleaseDate2.setMonth(5);
+        assertFalse(testReleaseDate.equals(testReleaseDate2)); // only month diff
+        testReleaseDate2.setMonth(4);
+        testReleaseDate2.setDay(20);
+        assertFalse(testReleaseDate.equals(testReleaseDate2)); // only day diff
+        assertTrue(testReleaseDate.equals(testReleaseDate));
         assertFalse(testReleaseDate.equals(testReleaseDate2));
     }
 }
