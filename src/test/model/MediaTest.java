@@ -81,7 +81,10 @@ class MediaTest {
         assertFalse(testMedia.equals(testMedia2));
         testMedia.setRating(39); // testMedia2.getRating() < testMedia.getRating()
         assertFalse(testMedia.equals(testMedia2));
+        testMedia.setRating(-0); // testMedia2.getRating() < testMedia.getRating()
+        assertFalse(testMedia.equals(testMedia2));
         testMedia2.setRating(39); // now ratings are all ==
+        testMedia.setRating(39);
         assertTrue(testMedia.equals(testMedia2));
         testMedia2.setTitle("The Good Place"); // only title is different
         assertFalse(testMedia.equals(testMedia2));
