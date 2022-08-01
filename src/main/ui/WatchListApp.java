@@ -62,7 +62,7 @@ public class WatchListApp {
         } else if (userCommand.equals("load")) {
             loadWatchList();
         } else {
-            System.out.println("Selection is invalid. Please try again!");
+            System.err.println("Selection is invalid. Please try again!");
         }
     }
 
@@ -153,7 +153,7 @@ public class WatchListApp {
                 watchlist.addPlannedToWatch(media);
                 break;
             } else {
-                System.out.println("Invalid selection. Please try again!");
+                System.err.println("Invalid selection. Please try again!");
                 runApp(); // Return user back to main menu open doing a bad thing
             }
         }
@@ -180,7 +180,7 @@ public class WatchListApp {
                 newMedia = processStepsMedia(option);
                 break;
             } else {
-                System.out.println("Selection is invalid. Please try again!");
+                System.err.println("Selection is invalid. Please try again!");
             }
         }
         return newMedia;
@@ -199,7 +199,7 @@ public class WatchListApp {
                 newMedia.setTitle(input);
                 ongoing = false;
             } else {
-                System.out.println("Title length should be greater than 1 character");
+                System.err.println("Title length should be greater than 1 character");
             }
         }
         return newMedia;
@@ -218,7 +218,7 @@ public class WatchListApp {
                 newMedia.setGenre(input);
                 ongoing = false;
             } else {
-                System.out.println("Title length should be greater than 1 character");
+                System.err.println("Title length should be greater than 1 character");
             }
         }
         return newMedia;
@@ -228,28 +228,40 @@ public class WatchListApp {
     @SuppressWarnings("methodlength")
     private Media processMediaReleaseDate(Media newMedia) {
         String input;
-        int year;
-        int month;
-        int day;
+        int year = -1;
+        int month = -1;
+        int day = -1;
         boolean ongoing = true;
 
         while (ongoing) {
             System.out.println("\nWhat is the release year of the Media?");
             input = userInput.next();
-            year = Integer.parseInt(input);
+            try {
+                year = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.err.println("Input must be a valid type");
+            }
 
             System.out.println("What is the release month of the Media?");
             input = userInput.next();
-            month = Integer.parseInt(input);
+            try {
+                month = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.err.println("Input must be a valid type");
+            }
 
             System.out.println("What is the release day of the Media?");
             input = userInput.next();
-            day = Integer.parseInt(input);
+            try {
+                day = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.err.println("Input must be a valid type");
+            }
 
             if (year < 1700 | month < 0 | month > 12 | day < 1 | day > 31) {
-                System.out.println("Year must be greater than 1700");
-                System.out.println("Month must be between 1 to 12");
-                System.out.println("Day must be between 1 to 31");
+                System.err.println("Year must be greater than 1700");
+                System.err.println("Month must be between 1 to 12");
+                System.err.println("Day must be between 1 to 31");
             } else {
                 newMedia.setReleaseDate(year,month,day);
                 ongoing = false;
@@ -283,7 +295,7 @@ public class WatchListApp {
                 System.out.println("The average rating in the planned to watch list is: " + average);
                 break;
             } else {
-                System.out.println("Invalid selection or list is empty. Please try again!");
+                System.err.println("Invalid selection or list is empty. Please try again!");
                 ongoing = false;
             }
         }
@@ -306,7 +318,7 @@ public class WatchListApp {
                 retrieved.setRating(rating);
                 break;
             } else {
-                System.out.println("Rating must be between 0 to 100");
+                System.err.println("Rating must be between 0 to 100");
             }
         }
         System.out.println("Rating: " + retrieved.getRating() + " has been applied to: " + retrieved.getTitle() + "!");
@@ -325,7 +337,7 @@ public class WatchListApp {
             if (option.equals("c") || option.equals("d") || option.equals("p")) {
                 break;
             } else {
-                System.out.println("Invalid selection. Please try again!");
+                System.err.println("Invalid selection. Please try again!");
             }
         }
         return option;

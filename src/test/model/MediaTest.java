@@ -98,6 +98,9 @@ class MediaTest {
         testMedia2.setMovie(true);
         testMedia2.setTVShow(false);
         assertFalse(testMedia.equals(testMedia2));
+        testMedia2.setMovie(false);
+        testMedia2.setTVShow(true);
+        assertTrue(testMedia.equals(testMedia2));
         assertFalse(testMedia.equals(null)); // test null branch
         assertFalse(testMedia.equals(title)); // test diff obj type branch
         assertFalse(testMedia.equals(testMedia3)); // diff obj diff fields
