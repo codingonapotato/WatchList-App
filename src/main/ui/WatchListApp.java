@@ -81,6 +81,7 @@ public class WatchListApp {
         System.out.println("\n>>> " + plannedToWatchTitles);
     }
 
+    // EFFECTS: returns the titles of the Media from a list of media concatenated into a single string
     private static String getWatchListTitles(List<Media> mediaList) {
         String str = "";
         for (Media m : mediaList) {
@@ -154,7 +155,6 @@ public class WatchListApp {
                 break;
             } else {
                 System.err.println("Invalid selection. Please try again!");
-                runApp(); // Return user back to main menu open doing a bad thing
             }
         }
         System.out.println("Media with title: " + '"' + media.getTitle() + '"'
@@ -372,13 +372,14 @@ public class WatchListApp {
         System.out.println("\nSelect from:");
         System.out.println("\tadd -> Add Media");
         System.out.println("\trate -> Rate Media");
+        System.out.println("\tq -> Quit Application");
         System.out.println("\tavg -> Calculate average");
         System.out.println("\tview -> View watchlist contents");
         System.out.println("\tsave -> Save watchlist to file");
         System.out.println("\tload -> Load watchlist from file");
     }
 
-    // EFFECTS: displays menu of watch list categories to the user
+    // EFFECTS: displays menu of watchlist categories to the user
     private void displayListMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> Currently Watching");
