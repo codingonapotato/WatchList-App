@@ -2,14 +2,21 @@ package ui;
 
 import model.Media;
 import model.WatchList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // adapted from Teller app; refer to link below:
 // https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
 public class WatchListApp {
+    private static final String JSON_SAVE_DESTINATION = "./data/watchlist.json";
     private Scanner userInput;
     private WatchList watchlist;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the watchlist application
     public WatchListApp() {
@@ -47,8 +54,35 @@ public class WatchListApp {
             doRating();
         } else if (userCommand.equals("avg")) {
             doAverage();
+        } else if (userCommand.equals("save")) {
+            saveWatchList();
+        } else if (userCommand.equals("load")) {
+            loadWatchList();
         } else {
             System.out.println("Selection is invalid. Please try again!");
+        }
+    }
+
+    // EFFECTS: save watchlist to file
+    private void saveWatchList() {
+        try {
+            jsonWriter.openWriter();
+            jsonWriter.writeFile(watchlist);
+            jsonWriter.closeWriter();
+            System.out.println("Your watchlist has been stored successfully to: " + JSON_SAVE_DESTINATION);
+        } catch (FileNotFoundException e) {
+            System.err.println("Sorry! Writing the watchlist to " + JSON_SAVE_DESTINATION + " has failed...");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: load watchlist from file
+    private void loadWatchList() {
+        try {
+            watchlist = jsonReader.read();
+            System.out.println("Your watchlist has been loaded successfully from: " + JSON_SAVE_DESTINATION);
+        } catch (IOException e) {
+            System.err.println("Sorry! Reading from  " + JSON_SAVE_DESTINATION + " has failed...");
         }
     }
 
@@ -301,7 +335,8 @@ public class WatchListApp {
         System.out.println("\tadd -> Add Media");
         System.out.println("\trate -> Rate Media");
         System.out.println("\tavg -> Calculate average");
-        System.out.println("\tq -> quit");
+        System.out.println("\tsave -> Save watchlist to file");
+        System.out.println("\tload -> Load watchlist from file");
     }
 
     // EFFECTS: displays menu of watch list categories to the user
@@ -316,6 +351,8 @@ public class WatchListApp {
     // EFFECTS: initializes watchlist
     private void init() {
         watchlist = new WatchList();
+        jsonReader = new JsonReader(JSON_SAVE_DESTINATION);
+        jsonWriter = new JsonWriter(JSON_SAVE_DESTINATION);
         userInput = new Scanner(System.in);
         userInput.useDelimiter("\n");
     }
