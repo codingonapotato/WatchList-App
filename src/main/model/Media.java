@@ -123,9 +123,4 @@ public class Media implements Writable {
                 && title.equals(media.title) && releaseDate.equals(media.releaseDate) && genre.equals(media.genre);
         }
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, releaseDate, genre, rating, movie, tvShow);
-    }
 }

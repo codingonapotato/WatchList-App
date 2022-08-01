@@ -54,9 +54,4 @@ public class ReleaseDate implements Writable {
             return year == that.year && month == that.month && day == that.day;
         }
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(year, month, day);
-    }
 }

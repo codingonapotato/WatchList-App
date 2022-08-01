@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MediaTest {
     private Media testMedia;
+    private Media testMedia2;
     private String title;
     private String genre;
     private boolean movie;
@@ -17,10 +18,19 @@ class MediaTest {
         title = "Kimetsu no Yaiba - Mugen Train";
         genre = "anime";
         testMedia = new Media();
+        testMedia2 = new Media();
 
         testMedia.setTitle(title);
         testMedia.setGenre(genre);
         testMedia.setReleaseDate(2020,10,16);
+        testMedia.setTVShow(true);
+        testMedia.setMovie(false);
+
+        testMedia2.setTitle(title);
+        testMedia2.setGenre(genre);
+        testMedia2.setReleaseDate(2020,10,16);
+        testMedia2.setTVShow(true);
+        testMedia2.setMovie(false);
 
     }
 
@@ -34,13 +44,7 @@ class MediaTest {
         assertEquals("anime", testMedia.getGenre());
         assertTrue(testMedia.getRating() == 0);
         assertFalse(testMedia.getMovie());
-        assertFalse(testMedia.getTVShow());
-
-        // Test setters for movie and tv show field:
-        testMedia.setTVShow(true);
-        testMedia.setMovie(false);
         assertTrue(testMedia.getTVShow());
-        assertFalse(testMedia.getMovie());
     }
 
     @Test
@@ -59,5 +63,12 @@ class MediaTest {
         testMedia.setRating(27.5);
         //check output:
         assertEquals(27.5, testMedia.getRating());
+    }
+
+    @Test
+    public void testEquals() {
+        assertTrue(testMedia.equals(testMedia));
+        assertTrue(testMedia.equals(testMedia2));
+        assertFalse(testMedia.equals(null));
     }
 }
