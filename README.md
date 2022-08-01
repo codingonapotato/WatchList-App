@@ -26,3 +26,4 @@ and take the best features that I love from those services and try to implement 
 
 - As a user, I would like to save the current state of my Watch list to file
 - As a user, I would like to be able to load my saved Watch list from a file
+- As a user, it would be nice to be able to see the titles of the media items on my watchlist
