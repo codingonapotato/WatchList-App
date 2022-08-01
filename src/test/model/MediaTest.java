@@ -89,6 +89,15 @@ class MediaTest {
         assertTrue(testMedia.equals(testMedia2));
         testMedia2.setGenre("sitcom"); // only genre is different
         assertFalse(testMedia.equals(testMedia2));
+        testMedia2.setGenre("anime");
+        assertTrue(testMedia.equals(testMedia2));
+        testMedia2.setReleaseDate(2000,1,13); // only releasedate is different
+        assertFalse(testMedia.equals(testMedia2));
+        testMedia2.setReleaseDate(2020,10,16); // now releasedates are ==
+        assertTrue(testMedia.equals(testMedia2));
+        testMedia2.setMovie(true);
+        testMedia2.setTVShow(false);
+        assertFalse(testMedia.equals(testMedia2));
         assertFalse(testMedia.equals(null)); // test null branch
         assertFalse(testMedia.equals(title)); // test diff obj type branch
         assertFalse(testMedia.equals(testMedia3)); // diff obj diff fields
