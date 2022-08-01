@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ReleaseDateTest {
     private ReleaseDate testReleaseDate;
     private ReleaseDate testReleaseDate2;
+    private ReleaseDate testReleaseDate3;
     private int year = 2020;
     private int month = 4;
     private int day = 1;
@@ -16,6 +17,7 @@ public class ReleaseDateTest {
     public void setup() {
         testReleaseDate = new ReleaseDate(year, month,day);
         testReleaseDate2 = new ReleaseDate(year, month,day);
+        testReleaseDate3 = new ReleaseDate(2009, 9, 27);
     }
 
     @Test
@@ -28,6 +30,8 @@ public class ReleaseDateTest {
     @Test
     public void testEquals() {
         assertFalse(testReleaseDate.equals(null));
+        assertFalse(testReleaseDate.equals(year));
+        assertFalse(testReleaseDate.equals(testReleaseDate3));
         assertTrue(testReleaseDate.equals(testReleaseDate));
         assertTrue(testReleaseDate.equals(testReleaseDate2));
     }

@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MediaTest {
     private Media testMedia;
     private Media testMedia2;
+    private Media testMedia3;
     private String title;
     private String genre;
     private boolean movie;
@@ -19,6 +20,7 @@ class MediaTest {
         genre = "anime";
         testMedia = new Media();
         testMedia2 = new Media();
+        testMedia3 = new Media();
 
         testMedia.setTitle(title);
         testMedia.setGenre(genre);
@@ -32,6 +34,11 @@ class MediaTest {
         testMedia2.setTVShow(true);
         testMedia2.setMovie(false);
 
+        testMedia3.setTitle(title);
+        testMedia3.setGenre(genre);
+        testMedia3.setReleaseDate(2009,3,18);
+        testMedia3.setTVShow(false);
+        testMedia3.setMovie(true);
     }
 
     @Test
@@ -70,5 +77,7 @@ class MediaTest {
         assertTrue(testMedia.equals(testMedia));
         assertTrue(testMedia.equals(testMedia2));
         assertFalse(testMedia.equals(null));
+        assertFalse(testMedia.equals(title));
+        assertFalse(testMedia.equals(testMedia3));
     }
 }
