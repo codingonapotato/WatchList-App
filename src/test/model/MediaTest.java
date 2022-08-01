@@ -76,13 +76,15 @@ class MediaTest {
     @Test
     public void testEquals() {
         assertTrue(testMedia.equals(testMedia));
-        assertTrue(testMedia.equals(testMedia2));
-        testMedia2.setRating(21.0);
+        assertTrue(testMedia.equals(testMedia2)); // diff obj same fields
+        testMedia2.setRating(21.0); // testMedia2.getRating() > testMedia.getRating()
         assertFalse(testMedia.equals(testMedia2));
-        testMedia.setRating(39);
+        testMedia.setRating(39); // testMedia2.getRating() < testMedia.getRating()
         assertFalse(testMedia.equals(testMedia2));
-        assertFalse(testMedia.equals(null));
-        assertFalse(testMedia.equals(title));
-        assertFalse(testMedia.equals(testMedia3));
+        testMedia2.setRating(0);
+        assertFalse(testMedia.equals(testMedia2));
+        assertFalse(testMedia.equals(null)); // test null branch
+        assertFalse(testMedia.equals(title)); // test diff obj type branch
+        assertFalse(testMedia.equals(testMedia3)); // diff obj diff fields
     }
 }
