@@ -32,7 +32,13 @@ public class ReleaseDateTest {
         assertFalse(testReleaseDate.equals(null));
         assertFalse(testReleaseDate.equals(year));
         assertFalse(testReleaseDate.equals(testReleaseDate3));
+        testReleaseDate3.setDay(1);
+        assertFalse(testReleaseDate.equals(testReleaseDate3));
+        testReleaseDate3.setMonth(4);
+        assertFalse(testReleaseDate.equals(testReleaseDate3));
         assertTrue(testReleaseDate.equals(testReleaseDate));
         assertTrue(testReleaseDate.equals(testReleaseDate2));
+        testReleaseDate2.setYear(2000);
+        assertFalse(testReleaseDate.equals(testReleaseDate2));
     }
 }

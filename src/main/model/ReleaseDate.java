@@ -34,6 +34,21 @@ public class ReleaseDate implements Writable {
         return this.day;
     }
 
+    // EFFECTS: sets the year
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    // EFFECTS: sets the month
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    // EFFECTS: sets the day
+    public void setDay(int day) {
+        this.day = day;
+    }
+
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

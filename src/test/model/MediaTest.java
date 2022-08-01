@@ -34,8 +34,8 @@ class MediaTest {
         testMedia2.setTVShow(true);
         testMedia2.setMovie(false);
 
-        testMedia3.setTitle(title);
-        testMedia3.setGenre(genre);
+        testMedia3.setTitle("Saw");
+        testMedia3.setGenre("Horror");
         testMedia3.setReleaseDate(2009,3,18);
         testMedia3.setTVShow(false);
         testMedia3.setMovie(true);
@@ -76,6 +76,8 @@ class MediaTest {
     public void testEquals() {
         assertTrue(testMedia.equals(testMedia));
         assertTrue(testMedia.equals(testMedia2));
+        testMedia2.setRating(21.0);
+        assertFalse(testMedia.equals(testMedia2));
         assertFalse(testMedia.equals(null));
         assertFalse(testMedia.equals(title));
         assertFalse(testMedia.equals(testMedia3));
