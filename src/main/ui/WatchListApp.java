@@ -7,6 +7,7 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 // adapted from Teller app; refer to link below:
@@ -54,6 +55,8 @@ public class WatchListApp {
             doRating();
         } else if (userCommand.equals("avg")) {
             doAverage();
+        } else if (userCommand.equals("view")) {
+            viewWatchList();
         } else if (userCommand.equals("save")) {
             saveWatchList();
         } else if (userCommand.equals("load")) {
@@ -61,6 +64,29 @@ public class WatchListApp {
         } else {
             System.out.println("Selection is invalid. Please try again!");
         }
+    }
+
+    // EFFECTS: prints the chosen watchlist onto the console
+    private void viewWatchList() {
+        String currentlyWatchingTitles = getWatchListTitles(watchlist.getCurrentlyWatching());
+        String droppedTitles = getWatchListTitles(watchlist.getDropped());
+        String plannedToWatchTitles = getWatchListTitles(watchlist.getPlannedToWatch());
+
+        System.out.println("\n Here are the contents of your watchlist: ");
+        System.out.println("\n Currently Watching: ");
+        System.out.println("\n>>> " + currentlyWatchingTitles);
+        System.out.println("\n Dropped: ");
+        System.out.println("\n>>> " + droppedTitles);
+        System.out.println("\n Planned to Watch: ");
+        System.out.println("\n>>> " + plannedToWatchTitles);
+    }
+
+    private static String getWatchListTitles(List<Media> mediaList) {
+        String str = "";
+        for (Media m : mediaList) {
+            str += m.getTitle() + ", ";
+        }
+        return str;
     }
 
     // EFFECTS: save watchlist to file
@@ -335,6 +361,7 @@ public class WatchListApp {
         System.out.println("\tadd -> Add Media");
         System.out.println("\trate -> Rate Media");
         System.out.println("\tavg -> Calculate average");
+        System.out.println("\tview -> View watchlist contents");
         System.out.println("\tsave -> Save watchlist to file");
         System.out.println("\tload -> Load watchlist from file");
     }
