@@ -3,6 +3,6 @@ package ui;
 
 public class Main {
     public static void main(String[] args) {
-        WatchListApp  watchListApp = new WatchListApp();
+        VisualWatchList vwl = new VisualWatchList();
     }
 }
