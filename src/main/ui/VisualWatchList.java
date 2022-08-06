@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +19,12 @@ public class VisualWatchList extends JFrame implements ActionListener {
     private WatchList watchList;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private ActionEvent e2;
     private JButton addButton;
     private JButton rateButton;
     private JButton avgButton;
     private JButton saveButton;
     private JButton loadButton;
-    private JButton cwButton;
-    private JButton drButton;
-    private JButton ptwButton;
+    private JButton viewButton;
 
     // EFFECTS: instantiates the object which will run the GUI for the user
     public VisualWatchList() {
@@ -77,10 +76,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         avgButton = new JButton("Calculate the average rating in a watchlist category");
         saveButton = new JButton("Save the state of the application");
         loadButton = new JButton("Load the state of the application");
-        // Watchlist category buttons
-        cwButton = new JButton("Currently-watching watchlist");
-        drButton = new JButton("Dropped watchlist");
-        ptwButton = new JButton("Planned-to-watch watchlist");
+        viewButton = new JButton("View watchlist contents");
     }
 
     // EFFECTS: adds starting menu JButtons to the GUI
@@ -90,6 +86,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         add(avgButton);
         add(saveButton);
         add(loadButton);
+        add(viewButton);
     }
 
     // EFFECTS: sets the ActionCommand for the specific JButton
@@ -97,6 +94,9 @@ public class VisualWatchList extends JFrame implements ActionListener {
         addButton.setActionCommand("add");
         rateButton.setActionCommand("rate");
         avgButton.setActionCommand("avg");
+        saveButton.setActionCommand("save");
+        loadButton.setActionCommand("load");
+        viewButton.setActionCommand("view");
     }
 
     // EFFECTS adds an ActionListener object for the instantiated JButtons
@@ -106,6 +106,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         avgButton.addActionListener(this);
         saveButton.addActionListener(this);
         loadButton.addActionListener(this);
+        viewButton.addActionListener(this);
 
     }
 
@@ -136,10 +137,66 @@ public class VisualWatchList extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equalsIgnoreCase("avg")) {
             double avg = avgListByCommand();
             JOptionPane.showMessageDialog(null,"The average score in your selected watchlist is: " + avg);
+        } else if (e.getActionCommand().equalsIgnoreCase("view")) {
+            viewWatchList();
+        } else if (e.getActionCommand().equalsIgnoreCase("save")) {
+            saveWatchList();
+            JOptionPane.showMessageDialog(null, "Saved watchlist to: " + JSON_SAVE_DESTINATION);
+        } else if (e.getActionCommand().equalsIgnoreCase("load")) {
+            loadWatchList();
+            JOptionPane.showMessageDialog(null, "Loaded watchlist from: " + JSON_SAVE_DESTINATION);
         } else {
             // do nothing
         }
     }
+
+    // EFFECTS: save watchlist to file
+    private void saveWatchList() {
+        try {
+            jsonWriter.openWriter();
+            jsonWriter.writeFile(watchList);
+            jsonWriter.closeWriter();
+            System.out.println("Your watchlist has been stored successfully to: " + JSON_SAVE_DESTINATION);
+        } catch (FileNotFoundException e) {
+            System.err.println("Sorry! Writing the watchlist to " + JSON_SAVE_DESTINATION + " has failed...");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: load watchlist from file
+    private void loadWatchList() {
+        try {
+            watchList = jsonReader.read();
+            System.out.println("Your watchlist has been loaded successfully from: " + JSON_SAVE_DESTINATION);
+        } catch (IOException e) {
+            System.err.println("Sorry! Reading from  " + JSON_SAVE_DESTINATION + " has failed...");
+        }
+    }
+
+    // EFFECTS: returns the titles of the Media from a list of media concatenated into a single string
+    private static String getWatchListTitles(List<Media> mediaList) {
+        String str = "";
+        for (Media m : mediaList) {
+            str += m.getTitle() + ", ";
+        }
+        return str;
+    }
+
+    // EFFECTS: prints the chosen watchlist onto the console
+    private void viewWatchList() {
+        String currentlyWatchingTitles = getWatchListTitles(watchList.getCurrentlyWatching());
+        String droppedTitles = getWatchListTitles(watchList.getDropped());
+        String plannedToWatchTitles = getWatchListTitles(watchList.getPlannedToWatch());
+
+        System.out.println("\n Here are the contents of your watchlist: ");
+        System.out.println("\n Currently Watching: ");
+        System.out.println("\n>>> " + currentlyWatchingTitles);
+        System.out.println("\n Dropped: ");
+        System.out.println("\n>>> " + droppedTitles);
+        System.out.println("\n Planned to Watch: ");
+        System.out.println("\n>>> " + plannedToWatchTitles);
+    }
+
 
     private double avgListByCommand() {
         String input = JOptionPane.showInputDialog(this, "Which list are you trying to access:"

@@ -23,6 +23,18 @@
             "genre": "anime",
             "rating": 67,
             "title": "demon slayer - mugen train"
+        },
+        {
+            "movie": true,
+            "releaseDate": {
+                "month": 7,
+                "year": 1999,
+                "day": 23
+            },
+            "tvShow": false,
+            "genre": "Anime ",
+            "rating": 0,
+            "title": "Tonari no Totoro"
         }
     ],
     "plannedToWatch": [],
