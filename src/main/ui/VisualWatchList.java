@@ -114,21 +114,71 @@ public class VisualWatchList extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null,"Task completed successfully");
     }
 
+    // EFFECTS: creates a JOptionPane with a message dialog box that indicates that a task was completed successfully
+    private void mediaListSizePane(List<Media> medias) {
+        String msg = "The size of your selected watchlist category is: ";
+        msg += medias.size();
+        JOptionPane.showMessageDialog(null,msg);
+    }
+
     // EFFECTS: Handles and calls the proper methods depending on which button/event is initiated by the user
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equalsIgnoreCase("add")) {
-            Media m = processAddList();
+            Media m = chooseMedia();
             List<Media> medias = getListByCommand();
             medias.add(m);
-            System.out.println("We did it!");
+            mediaListSizePane(medias);
             taskCompletedPane();
         } else if (e.getActionCommand().equalsIgnoreCase("rate")) {
-            taskCompletedPane();
+            List<Media> medias = getListByCommand();
+            addRating(processRating(medias));
         } else if (e.getActionCommand().equalsIgnoreCase("avg")) {
-            taskCompletedPane();
+            double avg = avgListByCommand();
+            JOptionPane.showMessageDialog(null,"The average score in your selected watchlist is: " + avg);
         } else {
             // do nothing
+        }
+    }
+
+    private double avgListByCommand() {
+        String input = JOptionPane.showInputDialog(this, "Which list are you trying to access:"
+                + " 'currently-watching', 'dropped', or 'planning-to-watch'?");
+        double avg = -1;
+        if (input.equalsIgnoreCase("currently-watching")) {
+            avg = watchList.averageRatingCurrentlyWatching();
+        } else if (input.equalsIgnoreCase("dropped")) {
+            avg = watchList.averageRatingDropped();
+        } else if (input.equalsIgnoreCase("planning-to-watch")) {
+            avg = watchList.averageRatingPlannedToWatch();
+        } else {
+            JOptionPane.showMessageDialog(null,"Attempt to average rating has failed");
+        }
+        return avg;
+    }
+
+    private Media processRating(List<Media> medias) {
+        Media med = new Media();
+        String title = JOptionPane.showInputDialog(this, "What is the title of the media you want to rate?");
+        for (Media m : medias) {
+            if (m.getTitle().equalsIgnoreCase(title)) {
+                med = m;
+            }
+        }
+        JOptionPane.showMessageDialog(null,"Retrieved " + med.getTitle());
+        return med;
+    }
+
+    private void addRating(Media med) {
+        String input = JOptionPane.showInputDialog(this, "What is the rating you would like to apply?");
+        double rating = Double.parseDouble(input);
+
+        if (rating >= 0 && rating <= 100) {
+            med.setRating(rating);
+            JOptionPane.showMessageDialog(null,"A rating of " + med.getRating()
+                    + " has been applied to " + med.getTitle());
+        } else {
+            System.err.println("Rating must be between 0 to 100");
         }
     }
 
@@ -138,7 +188,6 @@ public class VisualWatchList extends JFrame implements ActionListener {
                 + " 'currently-watching', 'dropped', or 'planning-to-watch'?");
         if (input.equalsIgnoreCase("currently-watching")) {
             medias = watchList.getCurrentlyWatching();
-            System.out.println("we got bois");
         } else if (input.equalsIgnoreCase("dropped")) {
             medias = watchList.getDropped();
         } else if (input.equalsIgnoreCase("planning-to-watch")) {
@@ -147,12 +196,6 @@ public class VisualWatchList extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null,"Attempt to add media has failed");
         }
         return medias;
-    }
-
-    // TODO:
-    private Media processAddList() {
-        Media newMedia = chooseMedia();
-        return newMedia;
     }
 
 //    // EFFECTS: adds JButtons related to watchlist categories to the GUI
