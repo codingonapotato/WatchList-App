@@ -9,12 +9,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VisualWatchList extends JFrame implements ActionListener {
     private static final String JSON_SAVE_DESTINATION = "./data/watchlist.json";
     private WatchList watchList;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private ActionEvent e2;
     private JButton addButton;
     private JButton rateButton;
     private JButton avgButton;
@@ -93,9 +96,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
     private void setButtonActionCommands() {
         addButton.setActionCommand("add");
         rateButton.setActionCommand("rate");
-        cwButton.setActionCommand("curr");
-        drButton.setActionCommand("drop");
-        ptwButton.setActionCommand("plan");
+        avgButton.setActionCommand("avg");
     }
 
     // EFFECTS adds an ActionListener object for the instantiated JButtons
@@ -105,9 +106,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         avgButton.addActionListener(this);
         saveButton.addActionListener(this);
         loadButton.addActionListener(this);
-        cwButton.addActionListener(this);
-        drButton.addActionListener(this);
-        ptwButton.addActionListener(this);
+
     }
 
     // EFFECTS: creates a JOptionPane with a message dialog box that indicates that a task was completed successfully
@@ -119,48 +118,60 @@ public class VisualWatchList extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equalsIgnoreCase("add")) {
-            doAddList();
+            Media m = processAddList();
+            List<Media> medias = getListByCommand();
+            medias.add(m);
+            System.out.println("We did it!");
+            taskCompletedPane();
         } else if (e.getActionCommand().equalsIgnoreCase("rate")) {
             taskCompletedPane();
         } else if (e.getActionCommand().equalsIgnoreCase("avg")) {
             taskCompletedPane();
-        } else if (e.getActionCommand().equalsIgnoreCase("curr")) {
-            taskCompletedPane();
-            JOptionPane.showMessageDialog(null,"curr");
-        } else if (e.getActionCommand().equalsIgnoreCase("drop")) {
-            taskCompletedPane();
-            JOptionPane.showMessageDialog(null,"drop");
-        } else if (e.getActionCommand().equalsIgnoreCase("plan")) {
-            taskCompletedPane();
         } else {
-            taskCompletedPane();
+            // do nothing
         }
     }
 
+    public List<Media> getListByCommand() {
+        List<Media> medias = new ArrayList<>();
+        String input = JOptionPane.showInputDialog(this, "Which list are you trying to access:"
+                + " 'currently-watching', 'dropped', or 'planning-to-watch'?");
+        if (input.equalsIgnoreCase("currently-watching")) {
+            medias = watchList.getCurrentlyWatching();
+            System.out.println("we got bois");
+        } else if (input.equalsIgnoreCase("dropped")) {
+            medias = watchList.getDropped();
+        } else if (input.equalsIgnoreCase("planning-to-watch")) {
+            medias = watchList.getPlannedToWatch();
+        } else {
+            JOptionPane.showMessageDialog(null,"Attempt to add media has failed");
+        }
+        return medias;
+    }
+
     // TODO:
-    private void doAddList() {
+    private Media processAddList() {
         Media newMedia = chooseMedia();
-        removeStartingButtons();
-        addCategoryListButtons();
+        return newMedia;
     }
 
-    // EFFECTS: adds JButtons related to watchlist categories to the GUI
-    private void addCategoryListButtons() {
-        add(cwButton);
-        add(drButton);
-        add(ptwButton);
-        setVisible(true);
-    }
+//    // EFFECTS: adds JButtons related to watchlist categories to the GUI
+//    private void addCategoryListButtons() {
+//        add(cwButton);
+//        add(drButton);
+//        add(ptwButton);
+//        setVisible(true);
+//    }
 
-    // EFFECTS: removes the starting menu JButtons from the GUI
-    private void removeStartingButtons() {
-        remove(addButton);
-        remove(rateButton);
-        remove(saveButton);
-        remove(loadButton);
-        remove(avgButton);
-        setVisible(false);
-    }
+//    // EFFECTS: removes the starting menu JButtons from the GUI
+//    private void removeStartingButtons() {
+//        remove(addButton);
+//        remove(rateButton);
+//        remove(saveButton);
+//        remove(loadButton);
+//        remove(avgButton);
+//        setVisible(false);
+//    }
 
     // MODIFIES: Media newMedia
     // EFFECTS: returns a media object with the user specified input
