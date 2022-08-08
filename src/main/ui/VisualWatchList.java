@@ -182,7 +182,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         return str;
     }
 
-    // EFFECTS: prints the chosen watchlist onto the console
+    // EFFECTS: prints the chosen watchlist onto the GUI with the media titles and the size of the watchlist categories
     private void viewWatchList() {
         String currentlyWatchingTitles = getWatchListTitles(watchList.getCurrentlyWatching());
         String droppedTitles = getWatchListTitles(watchList.getDropped());
@@ -210,7 +210,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
         viewWindow.setBounds(1080, 720,700,500);
     }
 
-
+    // EFFECTS: returns the average rating in the selected watchlist category
+    // otherwise returns -1 and a JOptionPane that advises the user
     private double avgListByCommand() {
         String input = JOptionPane.showInputDialog(this, "Which list are you trying to access:"
                 + " 'currently-watching', 'dropped', or 'planning-to-watch'?");
@@ -227,6 +228,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         return avg;
     }
 
+    // EFFECTS: returns media object with the matching title, otherwise returns a new media object
     private Media processRating(List<Media> medias) {
         Media med = new Media();
         String title = JOptionPane.showInputDialog(this, "What is the title of the media you want to rate?");
@@ -239,6 +241,9 @@ public class VisualWatchList extends JFrame implements ActionListener {
         return med;
     }
 
+    // MODIFIES: Media med
+    // EFFECTS: applies the rating to the media object with the matching title
+    // otherwise shows JOptionPane with a message to advise the user
     private void addRating(Media med) {
         String input = JOptionPane.showInputDialog(this, "What is the rating you would like to apply?");
         double rating = Double.parseDouble(input);
@@ -252,6 +257,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         }
     }
 
+    // EFFECTS: return a watchlist field, otherwise shows JOptionPane with a message to advise the user
     public List<Media> getListByCommand() {
         List<Media> medias = new ArrayList<>();
         String input = JOptionPane.showInputDialog(this, "Which list are you trying to access:"
@@ -323,6 +329,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         }
     }
 
+    // EFFECTS: creates a JOptionPane that advises the user of actions to take
     private void numberFormatErrMsg() {
         JOptionPane.showMessageDialog(null, "Please try again. Year needs to be greater than 1700 "
                 + ", month needs to be between 1 and 12, and day should be between 1 and 31");
