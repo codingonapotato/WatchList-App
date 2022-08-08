@@ -188,13 +188,26 @@ public class VisualWatchList extends JFrame implements ActionListener {
         String droppedTitles = getWatchListTitles(watchList.getDropped());
         String plannedToWatchTitles = getWatchListTitles(watchList.getPlannedToWatch());
 
-        System.out.println("\n Here are the contents of your watchlist: ");
-        System.out.println("\n Currently Watching: ");
-        System.out.println("\n>>> " + currentlyWatchingTitles);
-        System.out.println("\n Dropped: ");
-        System.out.println("\n>>> " + droppedTitles);
-        System.out.println("\n Planned to Watch: ");
-        System.out.println("\n>>> " + plannedToWatchTitles);
+        JLabel blank = new JLabel(" ");
+        JLabel blank2 = new JLabel(" ");
+
+        JLabel currLabel = new JLabel("[Currently-watching Watchlist] : " + currentlyWatchingTitles
+                + " <Size> : " + watchList.getCurrentlyWatching().size());
+        JLabel dropLabel = new JLabel("[Dropped Watchlist] : " + droppedTitles
+                + " <Size> : " + watchList.getDropped().size());
+        JLabel planLabel = new JLabel("[Planning-to-watch Watchlist] : " + plannedToWatchTitles
+                + " <Size> : " + watchList.getPlannedToWatch().size());
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        JFrame viewWindow = new JFrame();
+        panel.add(currLabel);
+        panel.add(blank);
+        panel.add(dropLabel);
+        panel.add(blank2);
+        panel.add(planLabel);
+        viewWindow.add(panel);
+        viewWindow.setVisible(true);
+        viewWindow.setBounds(1080, 720,700,500);
     }
 
 
