@@ -1,8 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
+import java.util.Objects;
+
 // Represents a piece of media having a title, release date, a genre, a rating, and two states/categories
 // (movie or TV show)
-public class Media {
+public class Media implements Writable {
     private String title;
     private ReleaseDate releaseDate;
     private String genre;
@@ -53,14 +59,14 @@ public class Media {
         this.genre = genre;
     }
 
-    // EFFECTS: sets movie to true
-    public void setMovie() {
-        this.movie = true;
+    // EFFECTS: sets movie to the given boolean
+    public void setMovie(boolean bool) {
+        this.movie = bool;
     }
 
-    // EFFECTS: set tvShow to true
-    public void setTVShow() {
-        this.tvShow = true;
+    // EFFECTS: set tvShow to the given boolean
+    public void setTVShow(boolean bool) {
+        this.tvShow = bool;
     }
 
     // EFFECTS: returns the title of the piece of media
@@ -91,5 +97,30 @@ public class Media {
     // EFFECTS: returns true if the media is a TV Show, false otherwise
     public boolean getTVShow() {
         return tvShow;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("releaseDate", releaseDate.toJson());
+        json.put("genre", genre);
+        json.put("rating", rating);
+        json.put("movie", movie);
+        json.put("tvShow", tvShow);
+        return json;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass())  {
+            return false;
+        } else {
+            Media media = (Media) o;
+            return Double.compare(media.rating, rating) == 0 && movie == media.movie && tvShow == media.tvShow
+                && title.equals(media.title) && releaseDate.equals(media.releaseDate) && genre.equals(media.genre);
+        }
     }
 }
