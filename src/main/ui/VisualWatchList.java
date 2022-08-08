@@ -75,7 +75,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         rateButton = new JButton("Rate media in WatchList");
         avgButton = new JButton("Calculate the average rating in a watchlist category");
         saveButton = new JButton("Save the state of the application");
-        loadButton = new JButton("Load the state of the application");
+        loadButton = new JButton("Load from save");
         viewButton = new JButton("View watchlist contents");
     }
 
