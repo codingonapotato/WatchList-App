@@ -136,7 +136,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
             addRating(processRating(medias));
         } else if (e.getActionCommand().equalsIgnoreCase("avg")) {
             double avg = avgListByCommand();
-            JOptionPane.showMessageDialog(null,"The average score in your selected watchlist is: " + avg);
+            JOptionPane.showMessageDialog(null,"The average score in your selected watchlist is: "
+                    + avg);
         } else if (e.getActionCommand().equalsIgnoreCase("view")) {
             viewWatchList();
         } else if (e.getActionCommand().equalsIgnoreCase("save")) {
@@ -144,7 +145,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Saved watchlist to: " + JSON_SAVE_DESTINATION);
         } else if (e.getActionCommand().equalsIgnoreCase("load")) {
             loadWatchList();
-            JOptionPane.showMessageDialog(null, "Loaded watchlist from: " + JSON_SAVE_DESTINATION);
+            JOptionPane.showMessageDialog(null, "Loaded watchlist from: "
+                    + JSON_SAVE_DESTINATION);
         } else {
             // do nothing
         }
@@ -231,7 +233,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
     // EFFECTS: returns media object with the matching title, otherwise returns a new media object
     private Media processRating(List<Media> medias) {
         Media med = new Media();
-        String title = JOptionPane.showInputDialog(this, "What is the title of the media you want to rate?");
+        String title = JOptionPane.showInputDialog(this,
+                "What is the title of the media you want to rate?");
         for (Media m : medias) {
             if (m.getTitle().equalsIgnoreCase(title)) {
                 med = m;
@@ -245,7 +248,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
     // EFFECTS: applies the rating to the media object with the matching title
     // otherwise shows JOptionPane with a message to advise the user
     private void addRating(Media med) {
-        String input = JOptionPane.showInputDialog(this, "What is the rating you would like to apply?");
+        String input = JOptionPane.showInputDialog(this,
+                "What is the rating you would like to apply?");
         double rating = Double.parseDouble(input);
 
         if (rating >= 0 && rating <= 100) {
@@ -301,7 +305,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: sets the user input as the genre of the media object
     private void processMediaGenre(Media newMedia) {
-        String input = JOptionPane.showInputDialog(this, "What is the genre of the media you are adding?");
+        String input = JOptionPane.showInputDialog(this,
+                "What is the genre of the media you are adding?");
         newMedia.setGenre(input);
     }
 
@@ -312,12 +317,15 @@ public class VisualWatchList extends JFrame implements ActionListener {
         int year;
         int month;
         int day;
-        String input = JOptionPane.showInputDialog(this, "What is the release year for the media you are adding?");
+        String input = JOptionPane.showInputDialog(this,
+                "What is the release year for the media you are adding?");
         try {
             year = Integer.parseInt(input);
-            input = JOptionPane.showInputDialog(this, "What is the release month for the media you are adding?");
+            input = JOptionPane.showInputDialog(this,
+                    "What is the release month for the media you are adding?");
             month = Integer.parseInt(input);
-            input = JOptionPane.showInputDialog(this, "What is the release day for the media you are adding?");
+            input = JOptionPane.showInputDialog(this,
+                    "What is the release day for the media you are adding?");
             day = Integer.parseInt(input);
             if (year < 1700 | month < 0 | month > 12 | day < 1 | day > 31) {
                 numberFormatErrMsg();
@@ -331,7 +339,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
 
     // EFFECTS: creates a JOptionPane that advises the user of actions to take
     private void numberFormatErrMsg() {
-        JOptionPane.showMessageDialog(null, "Please try again. Year needs to be greater than 1700 "
+        JOptionPane.showMessageDialog(null, "Please try again. Year needs to be greater than 1700"
                 + ", month needs to be between 1 and 12, and day should be between 1 and 31");
     }
 
@@ -339,7 +347,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: sets the user input as the title of the media object
     private void processMediaTitle(Media newMedia) {
-        String input = JOptionPane.showInputDialog(this, "What is the title of the media you are adding?");
+        String input = JOptionPane.showInputDialog(this,
+                "What is the title of the media you are adding?");
         newMedia.setTitle(input);
     }
 }
