@@ -29,6 +29,7 @@ and take the best features that I love from those services and try to implement 
 - As a user, it would be nice to be able to see the titles of the media items in my watchlist
 ## Instructions for Grader:
 
+- The application can be launched from main
 
 ### To add Media to your WatchList (First required event):
 - Click the *"Add media to Watchlist"* button
