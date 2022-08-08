@@ -248,7 +248,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null,"A rating of " + med.getRating()
                     + " has been applied to " + med.getTitle());
         } else {
-            System.err.println("Rating must be between 0 to 100");
+            JOptionPane.showMessageDialog(null, "Please input a valid rating between 0 and 100");
         }
     }
 
@@ -267,24 +267,6 @@ public class VisualWatchList extends JFrame implements ActionListener {
         }
         return medias;
     }
-
-//    // EFFECTS: adds JButtons related to watchlist categories to the GUI
-//    private void addCategoryListButtons() {
-//        add(cwButton);
-//        add(drButton);
-//        add(ptwButton);
-//        setVisible(true);
-//    }
-
-//    // EFFECTS: removes the starting menu JButtons from the GUI
-//    private void removeStartingButtons() {
-//        remove(addButton);
-//        remove(rateButton);
-//        remove(saveButton);
-//        remove(loadButton);
-//        remove(avgButton);
-//        setVisible(false);
-//    }
 
     // MODIFIES: Media newMedia
     // EFFECTS: returns a media object with the user specified input
@@ -321,13 +303,29 @@ public class VisualWatchList extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: sets the user input as the genre of the media object
     private void processMediaReleaseDate(Media newMedia) {
+        int year;
+        int month;
+        int day;
         String input = JOptionPane.showInputDialog(this, "What is the release year for the media you are adding?");
-        int year = Integer.parseInt(input);
-        input = JOptionPane.showInputDialog(this, "What is the release month for the media you are adding?");
-        int month = Integer.parseInt(input);
-        input = JOptionPane.showInputDialog(this, "What is the release day for the media you are adding?");
-        int day = Integer.parseInt(input);
-        newMedia.setReleaseDate(year, month, day);
+        try {
+            year = Integer.parseInt(input);
+            input = JOptionPane.showInputDialog(this, "What is the release month for the media you are adding?");
+            month = Integer.parseInt(input);
+            input = JOptionPane.showInputDialog(this, "What is the release day for the media you are adding?");
+            day = Integer.parseInt(input);
+            if (year < 1700 | month < 0 | month > 12 | day < 1 | day > 31) {
+                numberFormatErrMsg();
+            } else {
+                newMedia.setReleaseDate(year, month, day);
+            }
+        } catch (NumberFormatException e) {
+            numberFormatErrMsg();
+        }
+    }
+
+    private void numberFormatErrMsg() {
+        JOptionPane.showMessageDialog(null, "Please try again. Year needs to be greater than 1700 "
+                + ", month needs to be between 1 and 12, and day should be between 1 and 31");
     }
 
     // REQUIRES: input.length() > 1
