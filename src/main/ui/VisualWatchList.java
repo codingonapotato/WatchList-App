@@ -145,8 +145,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Saved watchlist to: " + JSON_SAVE_DESTINATION);
         } else if (e.getActionCommand().equalsIgnoreCase("load")) {
             loadWatchList();
-            JOptionPane.showMessageDialog(null, "Loaded watchlist from: "
-                    + JSON_SAVE_DESTINATION);
+            JOptionPane.showMessageDialog(null, "Loaded watchlist from: " + JSON_SAVE_DESTINATION);
         } else {
             // do nothing
         }
