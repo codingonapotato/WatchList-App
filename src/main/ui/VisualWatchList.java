@@ -175,10 +175,13 @@ public class VisualWatchList extends JFrame implements ActionListener {
     }
 
     // EFFECTS: returns the titles of the Media from a list of media concatenated into a single string
+    // with a number in front of each title to show the number of media objects in the watchlist category
     private static String getWatchListTitles(List<Media> mediaList) {
         String str = "";
+        int i = 1;
         for (Media m : mediaList) {
-            str += m.getTitle() + ", ";
+            str += "[" + i + "] " + m.getTitle() + ", ";
+            i++;
         }
         return str;
     }
