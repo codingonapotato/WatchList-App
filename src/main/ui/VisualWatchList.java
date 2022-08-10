@@ -40,7 +40,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         prepareButtons();
         loadImage();
         pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // set as this and then update once
         logScreen = new JTextArea();
         logScreen.setEditable(false);
         JScrollPane scroller = new JScrollPane(logScreen);
