@@ -26,6 +26,8 @@ public class WatchList implements Writable {
     public boolean addCurrentlyWatching(Media media) {
         if (!currentlyWatching.contains(media)) {
             currentlyWatching.add(media);
+            EventLog.getInstance().logEvent(new Event("Media added to currently-watching watchlist"));
+            System.out.println("done!");
             return true;
         } else {
             return false;
@@ -38,6 +40,7 @@ public class WatchList implements Writable {
     public boolean addDropped(Media media) {
         if (!dropped.contains(media)) {
             dropped.add(media);
+            EventLog.getInstance().logEvent(new Event("Media added to dropped watchlist"));
             return true;
         } else {
             return false;
@@ -50,6 +53,7 @@ public class WatchList implements Writable {
     public boolean addPlannedToWatch(Media media) {
         if (!plannedToWatch.contains(media)) {
             plannedToWatch.add(media);
+            EventLog.getInstance().logEvent(new Event("Media added to planning-to-watch watchlist"));
             return true;
         } else {
             return false;

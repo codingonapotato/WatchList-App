@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private JTextArea logScreen;
+    private JScrollPane scrollable;
+    private JFrame logArea;
     private JButton addButton;
     private JButton rateButton;
     private JButton avgButton;
@@ -40,27 +43,37 @@ public class VisualWatchList extends JFrame implements ActionListener {
         prepareButtons();
         loadImage();
         pack();
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE); // set as this and then update once
-        logScreen = new JTextArea();
-        logScreen.setEditable(false);
-        JScrollPane scroller = new JScrollPane(logScreen);
-        logScreen.setSize(500,200);
-        scroller.setSize(1000, 350);
-        scroller.setLocation(0,720);
-        logScreen.setText("Akjglajgajgagakgajga");
-        add(scroller);
-        scroller.setVisible(true);
-        logScreen.setVisible(true);
+    }
 
+    private void eventLogScreen() {
+        printLog(EventLog.getInstance());
+        logScreen.setEditable(false);
+        logScreen.setSize(500,200);
+//        scrollable.setSize(1000, 350);
+//        scrollable.setLocation(0,720);
+        logArea.add(scrollable);
+        logArea.setBounds(500,500,500,500);
+        logArea.setVisible(true);
+    }
+
+    @Override
+    protected void processWindowEvent(WindowEvent e) {
+        super.processWindowEvent(e);
+        if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+            eventLogScreen();
+            // perhaps make a pop up window with the event log and then close?
+        }
     }
 
     // MODIFIES: this
-    // EFFECTS: instantiates watchlist, jsonReader, and jsonWriter objects
+    // EFFECTS: instantiates objects for all non-JButton fields
     private void init() {
         watchList = new WatchList();
         jsonWriter = new JsonWriter(JSON_SAVE_DESTINATION);
         jsonReader = new JsonReader(JSON_SAVE_DESTINATION);
-
+        logArea = new JFrame();
+        logScreen = new JTextArea();
+        scrollable = new JScrollPane(logScreen);
     }
 
     // EFFECTS: adds a background image to the GUI
@@ -86,7 +99,6 @@ public class VisualWatchList extends JFrame implements ActionListener {
 
     // EFFECTS: instantiate new JButton with the appropriate label
     private void makeButtons() {
-        // Starting buttons
         addButton = new JButton("Add media to WatchList");
         rateButton = new JButton("Rate media in WatchList");
         avgButton = new JButton("Calculate the average rating in a watchlist category");
@@ -132,9 +144,9 @@ public class VisualWatchList extends JFrame implements ActionListener {
     }
 
     // EFFECTS: creates a JOptionPane with a message dialog box that indicates that a task was completed successfully
-    private void mediaListSizePane(List<Media> medias) {
+    private void mediaListSizePane(int i) {
         String msg = "The size of your selected watchlist category is: ";
-        msg += medias.size();
+        msg += i;
         JOptionPane.showMessageDialog(null,msg);
     }
 
@@ -143,9 +155,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equalsIgnoreCase("add")) {
             Media m = chooseMedia();
-            List<Media> medias = getListByCommand();
-            medias.add(m);
-            mediaListSizePane(medias);
+
+            mediaListSizePane(addToListByCommand(m));
             taskCompletedPane();
         } else if (e.getActionCommand().equalsIgnoreCase("rate")) {
             List<Media> medias = getListByCommand();
@@ -296,6 +307,26 @@ public class VisualWatchList extends JFrame implements ActionListener {
         return medias;
     }
 
+    // TODO:
+    public int addToListByCommand(Media m) {
+        int i = -1;
+        String input = JOptionPane.showInputDialog(this, "Which list are you trying to access:"
+                + " 'currently-watching', 'dropped', or 'planning-to-watch'?");
+        if (input.equalsIgnoreCase("currently-watching")) {
+            watchList.addCurrentlyWatching(m);
+            i = watchList.getCurrentlyWatching().size();
+        } else if (input.equalsIgnoreCase("dropped")) {
+            watchList.addDropped(m);
+            i = watchList.getDropped().size();
+        } else if (input.equalsIgnoreCase("planning-to-watch")) {
+            watchList.addPlannedToWatch(m);
+            i = watchList.getPlannedToWatch().size();
+        } else {
+            JOptionPane.showMessageDialog(null,"Attempt to add media has failed");
+        }
+        return i;
+    }
+
     // MODIFIES: Media newMedia
     // EFFECTS: returns a media object with the user specified input
     private Media chooseMedia() {
@@ -370,10 +401,12 @@ public class VisualWatchList extends JFrame implements ActionListener {
         newMedia.setTitle(input);
     }
 
+    // TODO:
     private void printLog(EventLog el) {
         for (Event e : el) {
-            logScreen.setText(logScreen.getText() + e.toString());
+            logScreen.setText(logScreen.getText() + e.toString() + "\n\n");
         }
+        repaint();
     }
 }
 
