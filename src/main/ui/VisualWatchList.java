@@ -1,7 +1,9 @@
 package ui;
 
+import model.EventLog;
 import model.Media;
 import model.WatchList;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -19,6 +21,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
     private WatchList watchList;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private JTextArea logScreen;
     private JButton addButton;
     private JButton rateButton;
     private JButton avgButton;
@@ -32,11 +35,23 @@ public class VisualWatchList extends JFrame implements ActionListener {
         init();
         setTitle("myWatchList Application");
         setBounds(1080, 720,700,500);
+        setLocation(0,0);
         setLayout(new FlowLayout());
         prepareButtons();
         loadImage();
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        logScreen = new JTextArea();
+        logScreen.setEditable(false);
+        JScrollPane scroller = new JScrollPane(logScreen);
+        logScreen.setSize(500,200);
+        scroller.setSize(1000, 350);
+        scroller.setLocation(0,720);
+        logScreen.setText("Akjglajgajgagakgajga");
+        add(scroller);
+        scroller.setVisible(true);
+        logScreen.setVisible(true);
+
     }
 
     // MODIFIES: this
@@ -45,6 +60,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         watchList = new WatchList();
         jsonWriter = new JsonWriter(JSON_SAVE_DESTINATION);
         jsonReader = new JsonReader(JSON_SAVE_DESTINATION);
+
     }
 
     // EFFECTS: adds a background image to the GUI
@@ -352,6 +368,12 @@ public class VisualWatchList extends JFrame implements ActionListener {
         String input = JOptionPane.showInputDialog(this,
                 "What is the title of the media you are adding?");
         newMedia.setTitle(input);
+    }
+
+    private void printLog(EventLog el) {
+        for (Event e : el) {
+            logScreen.setText(logScreen.getText() + e.toString());
+        }
     }
 }
 

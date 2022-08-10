@@ -124,4 +124,6 @@ public class Media implements Writable {
                 && title.equals(media.title) && releaseDate.equals(media.releaseDate) && genre.equals(media.genre);
         }
     }
+
+
 }
