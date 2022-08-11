@@ -25,6 +25,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
     private JTextArea logScreen;
     private JScrollPane scrollable;
     private JFrame logArea;
+    private JFrame viewWindow;
+    private JPanel panel;
     private JButton addButton;
     private JButton rateButton;
     private JButton avgButton;
@@ -45,15 +47,17 @@ public class VisualWatchList extends JFrame implements ActionListener {
         pack();
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays a panel with all the events in the event log
     private void eventLogScreen() {
         printLog(EventLog.getInstance());
         logScreen.setEditable(false);
         logScreen.setSize(500,200);
-//        scrollable.setSize(1000, 350);
-//        scrollable.setLocation(0,720);
         logArea.add(scrollable);
         logArea.setBounds(500,500,500,500);
         logArea.setVisible(true);
+        scrollable.setVisible(true);
+
     }
 
     @Override
@@ -61,12 +65,11 @@ public class VisualWatchList extends JFrame implements ActionListener {
         super.processWindowEvent(e);
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
             eventLogScreen();
-            // perhaps make a pop up window with the event log and then close?
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: instantiates objects for all non-JButton fields
+    // EFFECTS: instantiates objects
     private void init() {
         watchList = new WatchList();
         jsonWriter = new JsonWriter(JSON_SAVE_DESTINATION);
@@ -155,7 +158,6 @@ public class VisualWatchList extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equalsIgnoreCase("add")) {
             Media m = chooseMedia();
-
             mediaListSizePane(addToListByCommand(m));
             taskCompletedPane();
         } else if (e.getActionCommand().equalsIgnoreCase("rate")) {
@@ -213,32 +215,39 @@ public class VisualWatchList extends JFrame implements ActionListener {
         return str;
     }
 
+    // MODIFIES: this
     // EFFECTS: prints the chosen watchlist onto the GUI with the media titles and the size of the watchlist categories
     private void viewWatchList() {
+        panel = new JPanel();
+        viewWindow = new JFrame();
         String currentlyWatchingTitles = getWatchListTitles(watchList.getCurrentlyWatching());
         String droppedTitles = getWatchListTitles(watchList.getDropped());
         String plannedToWatchTitles = getWatchListTitles(watchList.getPlannedToWatch());
+        formatViewLabels(currentlyWatchingTitles, droppedTitles, plannedToWatchTitles);
+        viewWindow.add(panel);
+        viewWindow.setVisible(true);
+        viewWindow.setBounds(1080, 720,700,500);
+        watchList.logViewEvent();
+    }
 
+    // MODIFIES: this
+    // EFFECTS: format titles of watchlist category into JLabels and add the JLabels to the panel
+    private void formatViewLabels(String curr, String drop, String plan) {
         JLabel blank = new JLabel(" ");
         JLabel blank2 = new JLabel(" ");
 
-        JLabel currLabel = new JLabel("[Currently-watching Watchlist] : " + currentlyWatchingTitles
+        JLabel currLabel = new JLabel("[Currently-watching Watchlist] : " + curr
                 + " <Size> : " + watchList.getCurrentlyWatching().size());
-        JLabel dropLabel = new JLabel("[Dropped Watchlist] : " + droppedTitles
+        JLabel dropLabel = new JLabel("[Dropped Watchlist] : " + drop
                 + " <Size> : " + watchList.getDropped().size());
-        JLabel planLabel = new JLabel("[Planning-to-watch Watchlist] : " + plannedToWatchTitles
+        JLabel planLabel = new JLabel("[Planning-to-watch Watchlist] : " + plan
                 + " <Size> : " + watchList.getPlannedToWatch().size());
-        JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        JFrame viewWindow = new JFrame();
         panel.add(currLabel);
         panel.add(blank);
         panel.add(dropLabel);
         panel.add(blank2);
         panel.add(planLabel);
-        viewWindow.add(panel);
-        viewWindow.setVisible(true);
-        viewWindow.setBounds(1080, 720,700,500);
     }
 
     // EFFECTS: returns the average rating in the selected watchlist category
@@ -307,7 +316,9 @@ public class VisualWatchList extends JFrame implements ActionListener {
         return medias;
     }
 
-    // TODO:
+    // MODIFIES: this
+    // EFFECTS: add Media m to the appropriate watchlist category depending on the user input and return the size of the
+    //          watchlist category, otherwise return -1
     public int addToListByCommand(Media m) {
         int i = -1;
         String input = JOptionPane.showInputDialog(this, "Which list are you trying to access:"
@@ -401,7 +412,8 @@ public class VisualWatchList extends JFrame implements ActionListener {
         newMedia.setTitle(input);
     }
 
-    // TODO:
+    // MODIFIES: this
+    // EFFECTS: prints a log of all the events in the event log to the GUI
     private void printLog(EventLog el) {
         for (Event e : el) {
             logScreen.setText(logScreen.getText() + e.toString() + "\n\n");

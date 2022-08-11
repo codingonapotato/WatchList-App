@@ -71,3 +71,20 @@ To view the average rating in a watchlist category:
 - Click the *"Calculate the average rating in a watchlist category"* button 
 - Input either *"currently-watching"*, *"dropped"*, or *"planning-to-watch"*
 - Enjoy ^
+
+
+## Sample Event Log (Phase 4: Task 2)
+Wed Aug 10 13:30:32 PDT 2022
+Media added to currently-watching watchlist
+
+Wed Aug 10 13:30:53 PDT 2022
+Media added to planning-to-watch watchlist
+
+Wed Aug 10 13:31:13 PDT 2022
+Viewed contents of watchlist across all categories
+
+Wed Aug 10 13:31:41 PDT 2022
+Media added to dropped  watchlist
+
+Wed Aug 10 13:31:56 PDT 2022
+Viewed contents of watchlist across all categories

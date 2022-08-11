@@ -1,42 +1,38 @@
 {
-    "currentlyWatching": [
-        {
-            "movie": false,
-            "releaseDate": {
-                "month": 7,
-                "year": 2016,
-                "day": 31
-            },
-            "tvShow": true,
-            "genre": "sitcom",
-            "rating": 50,
-            "title": "the good place"
+    "currentlyWatching": [{
+        "movie": false,
+        "releaseDate": {
+            "month": 12,
+            "year": 2000,
+            "day": 31
         },
-        {
-            "movie": true,
-            "releaseDate": {
-                "month": 7,
-                "year": 2020,
-                "day": 26
-            },
-            "tvShow": false,
-            "genre": "anime",
-            "rating": 67,
-            "title": "demon slayer - mugen train"
+        "tvShow": true,
+        "genre": "anime",
+        "rating": 0,
+        "title": "m"
+    }],
+    "plannedToWatch": [{
+        "movie": true,
+        "releaseDate": {
+            "month": 12,
+            "year": 2000,
+            "day": 31
         },
-        {
-            "movie": true,
-            "releaseDate": {
-                "month": 7,
-                "year": 1999,
-                "day": 23
-            },
-            "tvShow": false,
-            "genre": "Anime ",
-            "rating": 0,
-            "title": "Tonari no Totoro"
-        }
-    ],
-    "plannedToWatch": [],
-    "dropped": []
+        "tvShow": false,
+        "genre": "anime",
+        "rating": 0,
+        "title": "m"
+    }],
+    "dropped": [{
+        "movie": false,
+        "releaseDate": {
+            "month": 12,
+            "year": 2000,
+            "day": 31
+        },
+        "tvShow": true,
+        "genre": "anime",
+        "rating": 0,
+        "title": "m"
+    }]
 }

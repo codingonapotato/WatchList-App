@@ -36,7 +36,6 @@ public class Media implements Writable {
     // EFFECTS: updates rating to a new value
     public void setRating(double rating) {
         this.rating = rating;
-        EventLog.getInstance().logEvent(new Event("Rating has been updated"));
     }
 
     // REQUIRES: title.length() > 0
@@ -99,6 +98,9 @@ public class Media implements Writable {
     public boolean getTVShow() {
         return tvShow;
     }
+
+
+
 
     @Override
     public JSONObject toJson() {

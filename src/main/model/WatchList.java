@@ -26,12 +26,20 @@ public class WatchList implements Writable {
     public boolean addCurrentlyWatching(Media media) {
         if (!currentlyWatching.contains(media)) {
             currentlyWatching.add(media);
-            EventLog.getInstance().logEvent(new Event("Media added to currently-watching watchlist"));
+            logAddEvent("currently-watching");
             System.out.println("done!");
             return true;
         } else {
             return false;
         }
+    }
+
+    // MODIFIES: EventLog.getInstance()
+    // EFFECTS: concatenates string into desired format then adds it as a description for a new event being added to
+    //          the event log
+    private void logAddEvent(String category) {
+        String str = "Media added to " + category + " watchlist";
+        EventLog.getInstance().logEvent(new Event(str));
     }
 
     // REQUIRES: each media object in the watch list is unique
@@ -40,7 +48,7 @@ public class WatchList implements Writable {
     public boolean addDropped(Media media) {
         if (!dropped.contains(media)) {
             dropped.add(media);
-            EventLog.getInstance().logEvent(new Event("Media added to dropped watchlist"));
+            logAddEvent("dropped");
             return true;
         } else {
             return false;
@@ -53,7 +61,7 @@ public class WatchList implements Writable {
     public boolean addPlannedToWatch(Media media) {
         if (!plannedToWatch.contains(media)) {
             plannedToWatch.add(media);
-            EventLog.getInstance().logEvent(new Event("Media added to planning-to-watch watchlist"));
+            logAddEvent("planning-to-watch");
             return true;
         } else {
             return false;
@@ -151,6 +159,13 @@ public class WatchList implements Writable {
             }
         }
         return m;
+    }
+
+    // MODIFIES: EventLog.getInstance()
+    // EFFECTS: adds a new event, with a descriptive string, to the event log
+    public void logViewEvent() {
+        Event e = new Event("Viewed contents of watchlist across all categories ");
+        EventLog.getInstance().logEvent(e);
     }
 
     @Override
