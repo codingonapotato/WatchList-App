@@ -96,3 +96,13 @@ For my watchlist application, I have 3 different array lists stored in 3 fields 
 categories. One refactoring I could do to my design could potentially be to add a field to the Media class that keeps
 track of which category the media objects belong to so that I can simply store everything in a single field in a single
 arraylist in the WatchList class. This change would help decrease the coupling between WatchList and Media.
+
+
+Additionally, perhaps I could extract a class called "Saver" that have fields of JsonWriter and JsonReader to handle
+the saving/loading functionality for the VisualWatchList class. This would help make my classes more cohesive and reduce
+coupling for VisualWatchList which would only need one field of Saver instead of a field of JsonWriter and JsonReader.
+
+
+I could potentially also have Watchlist implement the Iterable design pattern which would allow me to abstract the 
+internal details (the fact that I have 3 separate fields of arraylists in a WatchList object) of the iteration and 
+improve the way that my code is called from outside the Watchlist class.
