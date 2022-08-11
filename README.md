@@ -88,3 +88,7 @@ Media added to dropped  watchlist
 
 Wed Aug 10 13:31:56 PDT 2022
 Viewed contents of watchlist across all categories
+
+
+## Phase 4: Task 3
+

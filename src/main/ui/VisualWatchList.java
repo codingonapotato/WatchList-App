@@ -412,6 +412,7 @@ public class VisualWatchList extends JFrame implements ActionListener {
         newMedia.setTitle(input);
     }
 
+    // Source attributed to: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
     // MODIFIES: this
     // EFFECTS: prints a log of all the events in the event log to the GUI
     private void printLog(EventLog el) {
