@@ -92,3 +92,7 @@ Viewed contents of watchlist across all categories
 
 ## Phase 4: Task 3
 
+For my watchlist application, I have 3 different array lists stored in 3 fields to represent different watchlist 
+categories. One refactoring I could do to my design could potentially be to add a field to the Media class that keeps
+track of which category the media objects belong to so that I can simply store everything in a single field in a single
+arraylist in the WatchList class. This change would help decrease the coupling between WatchList and Media.
